@@ -1,0 +1,14 @@
+projekt ötletek:
+1.Todo List: 
+	Táblák: felhasználó, folyamatban, kész, nem megkezdett feladat.
+cimkék:	otthoni / munka / iskola
+emlékeztető a főoldalon
+login 
+feladathoz másik (akár több)  személy hozzáadása
+
+Táblák:
+Felhasználó(id,nev,email,jelszo)
+csoport(id,cs_nev,felhasznalo_id)
+feladat(id,f_nev,leiras,felhasznalo_id,cimke_id,prioritas,haladas)
+cimkek(id,c_nev)
+
