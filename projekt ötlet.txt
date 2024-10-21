@@ -11,4 +11,4 @@ Felhasználó(id,nev,email,jelszo)
 csoport(id,cs_nev,felhasznalo_id)
 feladat(id,f_nev,leiras,felhasznalo_id,cimke_id,prioritas,haladas)
 cimkek(id,c_nev)
-
+fdsfsfd
