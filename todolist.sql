@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Okt 15. 09:07
--- Kiszolgáló verziója: 10.4.28-MariaDB
--- PHP verzió: 8.2.4
+-- Létrehozás ideje: 2024. Okt 21. 12:25
+-- Kiszolgáló verziója: 10.4.32-MariaDB
+-- PHP verzió: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,9 +40,8 @@ CREATE TABLE `groups` (
 --
 
 CREATE TABLE `group_link` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `group_id` int(11) DEFAULT NULL
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -76,7 +75,8 @@ CREATE TABLE `task` (
   `user_id` int(11) DEFAULT NULL,
   `label_id` int(11) DEFAULT NULL,
   `priority` smallint(6) DEFAULT NULL,
-  `progresson` smallint(6) DEFAULT NULL
+  `progresson` smallint(6) DEFAULT NULL,
+  `deadline` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -107,7 +107,7 @@ ALTER TABLE `groups`
 -- A tábla indexei `group_link`
 --
 ALTER TABLE `group_link`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`user_id`,`group_id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `group_id` (`group_id`);
 
@@ -139,12 +139,6 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT a táblához `group_link`
---
-ALTER TABLE `group_link`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
