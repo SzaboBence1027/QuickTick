@@ -164,7 +164,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #444444;
 }
 .main-header .menu {
-  margin-top: 10px;
+  margin-top: 0px;
 }
 .main-header .menu ul li {
   display: inline-block;
@@ -629,6 +629,13 @@ IPHONE 4-4S-5 LANDSCAPE (568x320)
     top: 32px;
   }
 }
-/********************************
-IPHONE 4-4S-5 PORTRAIT (320x568)
-********************************/
+
+.login_href{
+  text-transform: uppercase;
+    color: #777777;
+    font-size: 15px;
+    padding: 8px 15px;
+    margin-top: 10px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
