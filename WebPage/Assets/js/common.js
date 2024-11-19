@@ -13,8 +13,8 @@ $(document).ready(function() {
                 if (response == 'true') {
                      // Login successful, you can redirect or perform other actions
                   $("#login_form").fadeOut("normal");
-                  //setTimeout('window.location.href = "welcome.php";',1000);
-                  alert("Sikeres bejelentkezés");
+                  setTimeout('window.location.href = "welcome.php";',1000);
+                  
                } else {
                    // Login failed, show error message
                   $("#error-message").addClass("alert-danger");
