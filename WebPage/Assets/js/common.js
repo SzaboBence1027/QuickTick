@@ -47,7 +47,7 @@ var state = {
     }
   
     document.getElementById("login-component").innerHTML = `
-        <div class="card p-3">    
+        <div  class="card p-3">    
           <h1>Bejelentkezés</h1>   
           <form id="login" class="p-3">
             <label class="w-100">
