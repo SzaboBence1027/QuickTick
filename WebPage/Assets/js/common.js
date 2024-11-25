@@ -52,17 +52,17 @@ var state = {
           <form id="login" class="p-3">
             <label class="w-100">
               Email:
-              <input type="text" name="email" class="form-control" ${
+              <input type="text" name="email" id="email" ${
                 state.isLoginPending ? "disabled" : ""
               }  />
             </label>
             <label class="w-100">
               Jelszó:
-              <input type="password" name="password" class="form-control" ${
+              <input type="password" name="password" id="password" ${
                 state.isLoginPending ? "disabled" : ""
               } />
             </label>
-            <button type="submit" class="btn btn-primary" ${
+            <button type="submit" id="login" ${
               state.isLoginPending ? "disabled" : ""
             }>Küldés</button>
             <div id="message" class="float-right mt-2">

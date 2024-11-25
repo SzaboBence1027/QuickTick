@@ -36,7 +36,7 @@ a:active:hover {
   transition: all 0.2s ease;
 }
 
-#login-form-wrap {
+#login-component {
   background-color: rgba(255, 255, 255, 0.788);
   width: 35%;
   margin: 30px auto;
