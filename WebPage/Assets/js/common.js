@@ -29,9 +29,10 @@
          });
          return false;
      });
- });*/
+ });
 
- var state = {
+*/
+var state = {
     users: [],
     isLoggedIn: false,
     isLoginPending: false
@@ -176,5 +177,10 @@
       '<ul class="list-group">' + usersHTML + "</ul>";
   }
   
+  /*
+    1. Ha a bejelentkezés sikeres, akkor a form ne jelenjen meg
+    2. Message doboz módosítása
+    3. Amíg a bejelentkezés folyamatban van, az input mezők legyenek disabled-re állítva
+  */
+  
 
- //:):(
