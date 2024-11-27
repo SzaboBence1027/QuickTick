@@ -56,51 +56,11 @@ var state = {
       state.isLoginPending = true;
       renderLoginComponent();
       loginAndFetchUsers(body);
-      /*
-      fetch("https://reqres.in/api/login", {
-        method: "POST",
-        body: body,
-        headers: {
-          "Content-type": "application/json"
-        }
-      })
-        .then(function(response) {
-          if (!response.ok) {
-            return Promise.reject("Bejelentkezés sikertelen");
-          }
-          return response.json();
-        })
-        .then(function(response) {
-          state.isLoggedIn = true;
-          state.isLoginPending = false;
-          renderLoginComponent();
-          return fetch("https://reqres.in/api/users");
-        })
-        .then(function(response) {
-          if (!response.ok) {
-            return Promise.reject("users error");
-          }
-          return response.json();
-        })
-        // action
-        .then(function(userPage) {
-          // state change
-          state.users = userPage.data;
-          // render
-          renderUsers();
-        })
-        .catch(function(error) {
-          state.isLoginPending = false;
-          renderLoginComponent();
-          alert(error);
-        });
-        */
+     
     };
   }
   
-  /*
-  * Async function
-  */
+ 
   
   async function loginAndFetchUsers(body) {
     // await: Promise<_> -> _
