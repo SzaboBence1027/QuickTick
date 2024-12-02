@@ -1,37 +1,3 @@
-/*$(document).ready(function() {
-    $("#login").click(function(e) {
-        e.preventDefault();
- 
-         $.ajax({
-            type: "POST",
-            url: "login.php",
-            data: {
-             username: $("#username").val(),
-             password: $("#password").val()
-          },
-            success: function(response) {
-                if (response == 'true') {
-                     // Login successful, you can redirect or perform other actions
-                  $("#login_form").fadeOut("normal");
-                  setTimeout('window.location.href = "welcome.php";',1000);
-                  
-               } else {
-                   // Login failed, show error message
-                  $("#error-message").addClass("alert-danger");
-                  $("#error-message").text("Invalid username or password. Please try again.");
-                  $("#error-message").show();
-                  $('#login_form').find('input').val('')
-               }
-            },
-            error: function(xhr, status, error) {
-               // Handle AJAX error here
-             }
-         });
-         return false;
-     });
- });
-
-*/
 var state = {
     users: [],
     isLoggedIn: false,
@@ -52,16 +18,20 @@ var state = {
           <form id="login" class="p-3">
             <label class="w-100">
               Email:
+              <br>
               <input type="text" name="email" id="email" ${
                 state.isLoginPending ? "disabled" : ""
               }  />
             </label>
+            <br>
             <label class="w-100">
               Jelszó:
+              <br>
               <input type="password" name="password" id="password" ${
                 state.isLoginPending ? "disabled" : ""
               } />
             </label>
+            <br>
             <button type="submit" id="login" ${
               state.isLoginPending ? "disabled" : ""
             }>Küldés</button>
@@ -69,6 +39,9 @@ var state = {
               ${state.isLoginPending ? "Bejelentkezés folyamatban..." : ""}
             </div>
           </form>
+        </div>
+        <div class="register">
+          <a href="../views/Registration_Page.html" >Regisztárció!</a> 
         </div>
     `;
   
@@ -83,51 +56,11 @@ var state = {
       state.isLoginPending = true;
       renderLoginComponent();
       loginAndFetchUsers(body);
-      /*
-      fetch("https://reqres.in/api/login", {
-        method: "POST",
-        body: body,
-        headers: {
-          "Content-type": "application/json"
-        }
-      })
-        .then(function(response) {
-          if (!response.ok) {
-            return Promise.reject("Bejelentkezés sikertelen");
-          }
-          return response.json();
-        })
-        .then(function(response) {
-          state.isLoggedIn = true;
-          state.isLoginPending = false;
-          renderLoginComponent();
-          return fetch("https://reqres.in/api/users");
-        })
-        .then(function(response) {
-          if (!response.ok) {
-            return Promise.reject("users error");
-          }
-          return response.json();
-        })
-        // action
-        .then(function(userPage) {
-          // state change
-          state.users = userPage.data;
-          // render
-          renderUsers();
-        })
-        .catch(function(error) {
-          state.isLoginPending = false;
-          renderLoginComponent();
-          alert(error);
-        });
-        */
+     
     };
   }
   
-  /*
-  * Async function
-  */
+ 
   
   async function loginAndFetchUsers(body) {
     // await: Promise<_> -> _
