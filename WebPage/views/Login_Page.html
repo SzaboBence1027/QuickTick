@@ -1,3 +1,4 @@
+<!--   
 <!DOCTYPE html>
 <html lang="hu" >
 <head>
@@ -5,14 +6,13 @@
   <title>Bejelentkezés</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="../Assets/css/Login_Style.css">
-
+  
 </head>
 <body>
-
-<div id="login-component">
-<!--   
-  <h2>Bejelentkezés</h2>
-  <form id="login-form" action="login.php">
+  
+  <div id="login-component">
+    <h2>Bejelentkezés</h2>
+    <form id="login-form" action="login.php">
     <p>
     <input type="text" id="username" name="username" placeholder="Felhasználónév" required><i class="validation"><span></span><span></span></i>
     </p>
@@ -26,13 +26,45 @@
   <div id="create-account-wrap">
     <p>Nincs fiókja? <a href="#">Regisztráció</a><p>
   </div>
-   -->
 </div>
 
-  
+
 </body>
 <script src="../Assets/js/common.js"></script>
 </html>
 
+-->
 
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Slide Navbar</title>
+	<link rel="stylesheet" type="text/css" href="slide navbar style.css">
+  <link rel="stylesheet" href="../Assets/css/Login_Style.css">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="main">  	
+		<input type="checkbox" id="chk" aria-hidden="true">
 
+			<div class="signup">
+				<form>
+					<label for="chk" aria-hidden="true">Sign up</label>
+					<input type="text" name="txt" placeholder="User name" required="">
+					<input type="email" name="email" placeholder="Email" required="">
+					<input type="password" name="pswd" placeholder="Password" required="">
+					<button>Sign up</button>
+				</form>
+			</div>
+
+			<div class="login">
+				<form>
+					<label for="chk" aria-hidden="true">Login</label>
+					<input type="email" name="email" placeholder="Email" required="">
+					<input type="password" name="pswd" placeholder="Password" required="">
+					<button>Login</button>
+				</form>
+			</div>
+	</div>
+</body>
+</html>
