@@ -1,7 +1,7 @@
 document.getElementById('loginForm').addEventListener('submit', function(event) {
   event.preventDefault();  // Prevent form submission
 
-  const eamil = document.getElementById('email').value;
+  const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
   //const rememberMe = document.getElementById('rememberMe').checked;
 
@@ -12,7 +12,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   data.append('email', email);
   data.append('password', password);
 
-  fetch('../php/login.php', {
+  fetch('../Assets/php/login.php', {
       method: 'POST',
       body: data
   })
