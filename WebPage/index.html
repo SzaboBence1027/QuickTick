@@ -1,319 +1,86 @@
+
+
 <!DOCTYPE html>
- <html class="no-js" lang="hu"> 
+<html>
 <head>
-    <title>Compass Responsive Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="templatemo">
-    <meta charset="utf-8" >
-    
-    <link href="./Assets/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="./Assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./Assets/css/templatemo-misc.css">
-    <link rel="stylesheet" href="./Assets/css/animate.css">
-    <link rel="stylesheet" href="./Assets/css/templatemo-main.css">
-        
-    
-    
-    <!-- JavaScripts -->
-    <script src="./Assets/js/jquery-1.10.2.min.js"></script>
-    <script src="./Assets/js/modernizr.js"></script>
-    
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./Assets/css/templatemo-main.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1,h5 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+  background-image: url('/w3images/onepage_restaurant.jpg');
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+</style>
 </head>
 <body>
-    
-    <div id="home">
-        <div class="site-header">
-            <div class="top-header">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <div class="left-header">
-                                
-                            </div> <!-- /.left-header -->
-                        </div> <!-- /.col-md-6 -->
-                        <div class="col-md-6 col-sm-6">
-                            <div class="right-header text-right">
-                                
-                            </div> <!-- /.left-header -->
-                        </div> <!-- /.col-md-6 -->
-                    </div> <!-- /.row -->
-                </div> <!-- /.container -->
-            </div> <!-- /.top-header -->
-            <div class="main-header">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-4 col-xs-6">
-                            <div class="logo">
-                                <h1>Főoldal</h1>
-                            </div> <!-- /.logo -->
-                        </div> <!-- /.col-md-4 -->
-                        <div class="col-md-7 col-sm-8 col-xs-6">
-                            <div class="menu text-right">
-                                <ul>
-                                    <li><a href="#home">Kezdőlap</a></li>
-                                    <li><a href="#services">Funkciók</a></li>
-                                    <li><a href="#portfolio">Képek</a></li>
-                                   
-                                    <li> </li>
-                                </ul>
 
-                                
-                            </div> <!-- /.menu -->
-                            
-                        </div> <!-- /.col-md-8 -->
-                        <div class="col-md-2 col-sm-8 col-xs-6">
-                            <div>
-                                <a href="./views/Login_Page.html" class="login_href">Bejelentkezés</a>
-                            </div>
-                           
-                        </div>
-                    </div> <!-- /.row -->
-                    <div class="responsive-menu text-right visible-xs visible-sm">
-                        <a href="#" class="toggle-menu fa fa-bars"></a>
-                        <div class="menu">
-                            <ul>
-                                <li><a href="#home">Home</a></li>
-                                <li><a href="#services">Services</a></li>
-                                <li><a href="#portfolio">Portfolio</a></li>
-                                
-                                <li><a href="#contact">Contact</a></li>
-                              
+<div class="bgimg w3-display-container w3-text-white">
+  <div class="w3-display-middle w3-jumbo">
+    <p>logo</p>
+  </div>
+  <div class="w3-display-topleft w3-container w3-xlarge">
+    <p><button onclick="document.getElementById('menu').style.display='block'" class="w3-button w3-black">menu</button></p>
+    <p><button onclick="document.getElementById('contact').style.display='block'" class="w3-button w3-black">contact</button></p>
+  </div>
+  <div class="w3-display-bottomleft w3-container">
+    <p class="w3-xlarge">monday - friday 10-23 | saturday 14-02</p>
+    <p class="w3-large">42 village St, New York</p>
+    <p>powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+  </div>
+</div>
 
-                               
-                            </ul>
-                        </div> <!-- /.menu -->
-                    </div> <!-- /.responsive-menu -->
-                </div> <!-- /.container -->
-            </div> <!-- /.header -->
-        </div> <!-- /.site-header -->
-    </div> <!-- /#home -->
-
-    <div class="flexslider">
-        <ul class="slides">
-            <li>
-                <img src="./Assets/images/banner01.jpg" alt="">
-                <div class="flex-caption">
-                    <h2>Compass Template</h2>
-                    <span></span>
-                    <p>Praesent tincidunt neque semper elementum gravida. Donec id euismod magna.<br>Ut erat ligula, malesuada eu quam a, fringilla auctor augue.</p>
-                </div>
-            </li>
-            <li>
-                <img src="./Assets/images/banner02.jpg" alt="">
-                <div class="flex-caption">
-                    <h2>Responsive Mobile</h2>
-                    <span></span>
-                    <p>Ea, similique, odit id consectetur est beatae quia dicta officiis ipsam itaque in<br>facilis aliquid quas officia voluptatem repellendus repellat!</p>
-                </div>
-            </li>
-        </ul>
+<!-- Menu Modal -->
+<div id="menu" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom">
+    <div class="w3-container w3-black w3-display-container">
+      <span onclick="document.getElementById('menu').style.display='none'" class="w3-button w3-display-topright w3-large">x</span>
+      <h1>Starters</h1>
     </div>
+    <div class="w3-container">
+      <h5>Tomato Soup <b>$2.50</b></h5>
+      <h5>Chicken Salad <b>$3.50</b></h5>
+      <h5>Bread and Butter <b>$1.00</b></h5>
+    </div>
+    <div class="w3-container w3-black">
+      <h1>Main Courses</h1>
+    </div>
+    <div class="w3-container">
+      <h5>Grilled Fish and Potatoes <b>$8.50</b></h5>
+      <h5>Italian Pizza <b>$5.50</b></h5>
+      <h5>Veggie Pasta <b>$4.00</b></h5>
+      <h5>Chicken and Potatoes <b>$6.50</b></h5>
+      <h5>Deluxe Burger <b>$5.00</b></h5>
+    </div>
+    <div class="w3-container w3-black">
+      <h1>Desserts</h1>
+    </div>
+    <div class="w3-container">
+      <h5>Fruit Salad <b>$2.50</b></h5>
+      <h5>Ice cream <b>$2.00</b></h5>
+      <h5>Chocolate Cake <b>$4.00</b></h5>
+      <h5>Cheese <b>$5.50</b></h5>
+    </div>
+  </div>
+</div>
 
-    <div id="services" class="section-cotent">
-        <div class="container">
-            <div class="title-section text-center">
-                <h2>Funkciók</h2>
-                <span></span>
-            </div> <!-- /.title-section -->
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="service-item">
-                        <div class="service-header">
-                            <i class="fa fa-umbrella"></i>
-                            <h3>Clean Design</h3>
-                        </div>
-                        <div class="service-description">
-                           
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, sapiente, saepe, velit, repellendus doloribus blanditiis repudiandae nobis optio quasi nulla aliquam nisi voluptatibus.
-                        </div>
-                    </div> <!-- /.service-item -->
-                </div> <!-- /.col-md-3 -->
-                <div class="col-md-3 col-sm-6">
-                    <div class="service-item">
-                        <div class="service-header">
-                            <i class="fa fa-desktop"></i>
-                            <h3>Fully Responsive</h3>
-                        </div>
-                        <div class="service-description">
-                            <a rel="nofollow" href="http://www.templatemo.com/tm-454-compass" target="_parent">Compass</a> is free responsive website template from templatemo. You can download and use this template for your websites. Please tell your friends about our website. Thank you for visiting us.
-                        </div>
-                    </div> <!-- /.service-item -->
-                </div> <!-- /.col-md-3 -->
-                <div class="col-md-3 col-sm-6">
-                    <div class="service-item">
-                        <div class="service-header">
-                            <i class="fa fa-cogs"></i>
-                            <h3>Easy Editing</h3>
-                        </div>
-                        <div class="service-description">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, sapiente, saepe, velit, repellendus doloribus blanditiis repudiandae nobis optio quasi nulla aliquam nisi voluptatibus.
-                        </div>
-                    </div> <!-- /.service-item -->
-                </div> <!-- /.col-md-3 -->
-                <div class="col-md-3 col-sm-6">
-                    <div class="service-item">
-                        <div class="service-header">
-                            <i class="fa fa-heart"></i>
-                            <h3>Fast Support</h3>
-                        </div>
-                        <div class="service-description">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, sapiente, saepe, velit, repellendus doloribus blanditiis repudiandae nobis optio quasi nulla aliquam nisi voluptatibus.
-                        </div>
-                    </div> <!-- /.service-item -->
-                </div> <!-- /.col-md-3 -->
-            </div> <!-- /.row -->
-        </div> <!-- /.container -->
-    </div> <!-- /#services -->
-
-    <div id="portfolio" class="section-content">
-        <div class="container">
-            <div class="title-section text-center">
-                <h2>Képek</h2>
-                <span></span>
-            </div> <!-- /.title-section -->
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="portfolio-thumb">
-                        <img src="./Assets/images/portfolio/item1.jpg" alt="Portfolio Item 1">
-                        <div class="overlay">
-                            <div class="inner">
-                                <h4><a data-rel="lightbox" href="./Assets/images/portfolio/item1.jpg">Nulla non enim</a></h4>
-                                <span>Design</span>
-                            </div>
-                        </div> <!-- /.overlay -->
-                    </div> <!-- /.portfolio-thumb -->
-                </div> <!-- /.col-md-3 -->
-                <div class="col-md-3 col-sm-6">
-                    <div class="portfolio-thumb">
-                        <img src="./Assets/images/portfolio/item2.jpg" alt="Portfolio Item 2">
-                        <div class="overlay">
-                            <div class="inner">
-                                <h4><a data-rel="lightbox" href="./Assets/images/portfolio/item2.jpg">Duis nec urna</a></h4>
-                                <span>Creative</span>
-                            </div>
-                        </div> <!-- /.overlay -->
-                    </div> <!-- /.portfolio-thumb -->
-                </div> <!-- /.col-md-3 -->
-                <div class="col-md-3 col-sm-6">
-                    <div class="portfolio-thumb">
-                        <img src="./Assets/images/portfolio/item3.jpg" alt="Portfolio Item 3">
-                        <div class="overlay">
-                            <div class="inner">
-                                <h4><a data-rel="lightbox" href="./Assets/images/portfolio/item3.jpg">Etiam magna</a></h4>
-                                <span>Design</span>
-                            </div>
-                        </div> <!-- /.overlay -->
-                    </div> <!-- /.portfolio-thumb -->
-                </div> <!-- /.col-md-3 -->
-                <div class="col-md-3 col-sm-6">
-                    <div class="portfolio-thumb">
-                        <img src="./Assets/images/portfolio/item4.jpg" alt="Portfolio Item 4">
-                        <div class="overlay">
-                            <div class="inner">
-                                <h4><a data-rel="lightbox" href="./Assets/images/portfolio/item4.jpg">Vivamus dignissim</a></h4>
-                                <span>Creative</span>
-                            </div>
-                        </div> <!-- /.overlay -->
-                    </div> <!-- /.portfolio-thumb -->
-                </div> <!-- /.col-md-3 -->
-            </div> <!-- /.row -->
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="portfolio-thumb">
-                        <img src="./Assets/images/portfolio/item5.jpg" alt="Portfolio Item 5">
-                        <div class="overlay">
-                            <div class="inner">
-                                <h4><a data-rel="lightbox" href="./Assets/images/portfolio/item5.jpg">Fusce semper</a></h4>
-                                <span>HTML CSS</span>
-                            </div>
-                        </div> <!-- /.overlay -->
-                    </div> <!-- /.portfolio-thumb -->
-                </div> <!-- /.col-md-3 -->
-                <div class="col-md-3 col-sm-6">
-                    <div class="portfolio-thumb">
-                        <img src="./Assets/images/portfolio/item6.jpg" alt="Portfolio Item 6">
-                        <div class="overlay">
-                            <div class="inner">
-                                <h4><a data-rel="lightbox" href="./Assets/images/portfolio/item6.jpg">Nunc ultrices</a></h4>
-                                <span>Mobile</span>
-                            </div>
-                        </div> <!-- /.overlay -->
-                    </div> <!-- /.portfolio-thumb -->
-                </div> <!-- /.col-md-3 -->
-                <div class="col-md-3 col-sm-6">
-                    <div class="portfolio-thumb">
-                        <img src="./Assets/images/portfolio/item7.jpg" alt="Portfolio Item 7">
-                        <div class="overlay">
-                            <div class="inner">
-                                <h4><a data-rel="lightbox" href="./Assets/images/portfolio/item7.jpg">Fusce vehicula</a></h4>
-                                <span>HTML CSS</span>
-                            </div>
-                        </div> <!-- /.overlay -->
-                    </div> <!-- /.portfolio-thumb -->
-                </div> <!-- /.col-md-3 -->
-                <div class="col-md-3 col-sm-6">
-                    <div class="portfolio-thumb">
-                        <img src="./Assets/images/portfolio/item8.jpg" alt="Portfolio Item 8">
-                        <div class="overlay">
-                            <div class="inner">
-                                <h4><a data-rel="lightbox" href="./Assets/images/portfolio/item8.jpg">Vivamus elementum</a></h4>
-                                <span>Mobile</span>
-                            </div>
-                        </div> <!-- /.overlay -->
-                    </div> <!-- /.portfolio-thumb -->
-                </div> <!-- /.col-md-3 -->
-            </div> <!-- /.row -->
-        </div> <!-- /.container -->
-    </div> <!-- /#portfolio -->
-
-   
-
-    <div class="site-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-sm-8 col-xs-12">
-                    <p>Copyright &copy; 2084 Company Name</p>
-                </div> <!-- /.col-md-6 -->
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="go-top">
-                        <a href="#" id="go-top">
-                            <i class="fa fa-angle-up"></i>
-                            Back to Top
-                        </a>
-                    </div>
-                </div> <!-- /.col-md-6 -->
-            </div> <!-- /.row -->
-        </div> <!-- /.container -->
-    </div> <!-- /.site-footer -->
-
-    <script src="./Assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="./Assets/js/plugins.js"></script>
-    <script src="./Assets/js/jquery.lightbox.js"></script>
-    <script src="./Assets/js/custom.js"></script>
-    <script type="text/javascript">
-
-        function initialize() {
-          var mapOptions = {
-			  scrollwheel: false,
-            zoom: 15,
-            center: new google.maps.LatLng(13.758468,100.567481)
-          };
-
-          var map = new google.maps.Map(document.getElementById('map-canvas'),
-              mapOptions);
-        }
-
-        function loadScript() {
-          var script = document.createElement('script');
-          script.type = 'text/javascript';
-          script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&' +
-              'callback=initialize';
-          document.body.appendChild(script);
-        }
-
-        window.onload = loadScript;
-    </script>
-
+<!-- Contact Modal -->
+<div id="contact" class="w3-modal">
+  <div class="w3-modal-content w3-animate-zoom">
+    <div class="w3-container w3-black">
+     
+      <h1>Bejelentkezés</h1>
+    </div>
+  
+  </div>
+</div>
+<button onclick="window.location.href='./views/Login_Page.html';">Bejelentkezés</button>
 </body>
 </html>
+

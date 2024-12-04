@@ -39,6 +39,7 @@
 <html>
 <head>
 	<title>Bejelentkezés</title>
+	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="slide navbar style.css">
   <link rel="stylesheet" href="../Assets/css/Login_Style.css">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
@@ -58,14 +59,16 @@
 			</div>
 
 			<div class="login">
-				<form>
+				<form id="loginForm">
 					<label for="chk" aria-hidden="true">Bejelentkezés</label>
-					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Jelszó" required="">
-					<button>Bejelentkezés</button>
+					<input type="email" name="email" id="email" placeholder="Email" required="">
+					<input type="password" name="pswd" id="password" placeholder="Jelszó" required="">
+					<button type="submit">Bejelentkezés</button>
 				</form>
+				<p id="errorMessage"></p> <!-- For showing error messages -->
 			</div>
 	</div>
+	<script src="../Assets/js/common.js"></script>
 </body>
 </html>
 
