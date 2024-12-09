@@ -11,7 +11,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   const data = new FormData();
   data.append('email', email);
   data.append('password', password);
-
+  console.log(data)  
   fetch('../Assets/php/login.php', {
       method: 'POST',
       body: data
@@ -20,6 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   .then(data => {
       if (data.success) {
           // Store JWT token
+         
           const token = data.token;
           if (rememberMe) {
               // Store token in cookies with 30 days expiry
@@ -28,7 +29,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
               // Store token in localStorage for the session
               localStorage.setItem('token', token);
           }
-          window.location.href = 'index.html';  // Redirect to protected page
+          window.location.href = '../../index.html';  // Redirect to protected page
       } else {
           document.getElementById('errorMessage').innerText = data.message;
       }

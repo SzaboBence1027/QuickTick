@@ -1,5 +1,7 @@
 <?php
-require_once './firebase/php-jwt-6.10.2/src/JWT.php';  
+// Valami összehasonlitas beli problema van beégetett helyes adatal sem  működik
+
+require_once '../firebase/php-jwt-6.10.2/src/JWT.php';  
 use \Firebase\JWT\JWT;
 require_once("connect.php");
 
@@ -16,13 +18,13 @@ try {
     exit;
 }
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
-    $inputUsername = $_POST['username'];
-    $inputPassword = $_POST['password'];
+if (isset($_POST['email']) && isset($_POST['password'])) {
+    $inputEmail = "Teszt@gmail.com";//$_POST['email'];
+    $inputPassword ="12345"; //$_POST['password'];
 
     // Find the user in the database
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
-    $stmt->bindParam(':username', $inputUsername);
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = email");
+    $stmt->bindParam(':email', $inputEmail);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -33,7 +35,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $payload = array(
             "iat" => $issued_at,
             "exp" => $expiration_time,
-            "username" => $user['username'],
+            "email" => $user['email'],
             "user_id" => $user['id']
         );
         
