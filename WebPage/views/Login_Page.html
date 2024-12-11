@@ -22,10 +22,10 @@
 			</div>
 
 			<div class="login">
-				<form id="loginForm">
+				<form id="loginForm" method="POST" action="/submit">
 					<label for="chk" aria-hidden="true">Bejelentkezés</label>
-					<input type="email" name="email" id="email" placeholder="Email" required="">
-					<input type="password" name="pswd" id="password" placeholder="Jelszó" required="">
+					<input type="email" name="email" id="lo_email" placeholder="Email" required="">
+					<input type="password" name="pswd" id="lo_password" placeholder="Jelszó" required="">
 					<button type="submit">Bejelentkezés</button>
 				</form>
 				<p id="errorMessage"></p> <!-- For showing error messages -->

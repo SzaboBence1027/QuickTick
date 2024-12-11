@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Successful login
-    echo json_encode(['message' => 'Login successful', 'user' => ['id' => $user['id'], 'username' => $user['username'], 'email' => $user['email']]]);
+    echo json_encode(['message' => 'Login successful', 'user' => ['id' => $user['id'], 'name' => $user['name'], 'email' => $user['email']]]);
 }
 
 
