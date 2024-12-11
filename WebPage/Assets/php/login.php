@@ -1,10 +1,7 @@
 <?php
-// Valami összehasonlitas beli problema van beégetett helyes adatal sem  működik
-
-require_once '../firebase/php-jwt-6.10.2/src/JWT.php';  
+/*require_once '../firebase/php-jwt-6.10.2/src/JWT.php';  
 use \Firebase\JWT\JWT;
 require_once("connect.php");
-
 
 // JWT secret key
 $secret_key = "k6ar3npeJjxd"; 
@@ -18,17 +15,22 @@ try {
     exit;
 }
 
+// Get input data from JSON request
+if ($_SERVER['REQUEST_METHOD']==='POST') {
+   
+
 if (isset($_POST['email']) && isset($_POST['password'])) {
-    $inputEmail = "Teszt@gmail.com";//$_POST['email'];
-    $inputPassword ="12345"; //$_POST['password'];
+    $inputEmail = $_POST['email'];
+    $inputPassword = $_POST['password'];
 
     // Find the user in the database
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = email");
-    $stmt->bindParam(':email', $inputEmail);
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt->bindParam(':email', $inputEmail);  // Correctly bind parameter
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user && password_verify($inputPassword, $user['password'])) {
+   var_dump($user);
+    if ($inputPassword === $user['password']) {
         // Create JWT
         $issued_at = time();
         $expiration_time = $issued_at + 3600;  // Valid for 1 hour
@@ -40,7 +42,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         );
         
         // Encode the JWT
-        $jwt = JWT::encode($payload, $secret_key);
+        $jwt = JWT::encode($payload, $secret_key,'HS256');
 
         echo json_encode([
             'success' => true,
@@ -48,9 +50,44 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             'token' => $jwt
         ]);
     } else {
+        // Log failed attempt and send error message
+        error_log("Failed login attempt for email: " . $inputEmail);
         echo json_encode(['success' => false, 'message' => 'Incorrect credentials']);
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Username and password required']);
 }
+}
+*/
+
+header('Content-Type: application/json');
+include('connect.php');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    // Get input values
+    $email = $data['email'] ?? '';
+    $password = $data['password'] ?? '';
+
+    if (empty($email) || empty($password)) {
+        echo json_encode(['error' => 'Email and password are required']);
+        exit;
+    }
+
+    // Fetch user by email
+    $stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email');
+    $stmt->execute(['email' => $email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$user || !password_verify($password, $user['password'])) {
+        echo json_encode(['error' => 'Invalid email or password']);
+        exit;
+    }
+
+    // Successful login
+    echo json_encode(['message' => 'Login successful', 'user' => ['id' => $user['id'], 'username' => $user['username'], 'email' => $user['email']]]);
+}
+
+
 ?>

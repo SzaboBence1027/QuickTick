@@ -1,4 +1,4 @@
-document.getElementById('loginForm').addEventListener('submit', function(event) {
+/*document.getElementById('loginForm').addEventListener('submit', function(event) {
   event.preventDefault();  // Prevent form submission
 
   const email = document.getElementById('email').value;
@@ -37,4 +37,24 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
   .catch(error => {
       document.getElementById('errorMessage').innerText = 'An error occurred!';
   });
+});*/
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const formData = {
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value
+    };
+
+    fetch('../Assets/php/login.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message || data.error);
+    });
 });
