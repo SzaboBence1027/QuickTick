@@ -61,6 +61,11 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 */
 
 header('Content-Type: application/json');
+use \Firebase\JWT\JWT;
+require_once("connect.php");
+
+// JWT secret key
+$secret_key = "k6ar3npeJjxd"; 
 include('connect.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -84,9 +89,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['error' => 'Invalid email or password']);
         exit;
     }
+    $issued_at = time();
+    $expiration_time = $issued_at + 3600;  // Valid for 1 hour
+    $payload = array(
+        "iat" => $issued_at,
+        "exp" => $expiration_time,
+        "email" => $user['email'],
+        "user_id" => $user['id']
+    );
+    
+    // Encode the JWT
+    $jwt = JWT::encode($payload, $secret_key,'HS256');
 
     // Successful login
-    echo json_encode(['message' => 'Login successful', 'user' => ['id' => $user['id'], 'name' => $user['name'], 'email' => $user['email']]]);
+    echo json_encode(['message' => 'Login successful','success' => true, 'token' => $jwt);
 }
 
 
