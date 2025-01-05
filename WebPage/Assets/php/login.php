@@ -60,13 +60,10 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 }
 */
 
-header('Content-Type: application/json');
-use \Firebase\JWT\JWT;
-require_once("connect.php");
 
-// JWT secret key
-$secret_key = "k6ar3npeJjxd"; 
-include('connect.php');
+header('Content-Type: application/json');
+require_once("connect.php");
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
@@ -76,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $data['password'] ?? '';
 
     if (empty($email) || empty($password)) {
-        echo json_encode(['error' => 'Email and password are required']);
+        echo json_encode(['error' => 'Email and password are required','success' => true]);
         exit;
     }
 
@@ -84,25 +81,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email');
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$user || !password_verify($password, $user['password'])) {
-        echo json_encode(['error' => 'Invalid email or password']);
+    error_log("Stored password hash: " . $user['password']);
+    if (!$user['email']===$email|| !password_verify($password, $user['password'])) {
+        echo json_encode(['error' => 'Invalid email or password','success' => true]);
+        
         exit;
     }
-    $issued_at = time();
-    $expiration_time = $issued_at + 3600;  // Valid for 1 hour
-    $payload = array(
-        "iat" => $issued_at,
-        "exp" => $expiration_time,
-        "email" => $user['email'],
-        "user_id" => $user['id']
-    );
-    
-    // Encode the JWT
-    $jwt = JWT::encode($payload, $secret_key,'HS256');
+
+    // Set session variables
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['email'] = $user['email'];
+    $_SESSION['logged_in'] = true;
 
     // Successful login
-    echo json_encode(['message' => 'Login successful','success' => true, 'token' => $jwt);
+    echo json_encode(['message' => 'Login successful', 'success' => true,'logged_in' => true,
+        'user_id' => $_SESSION['user_id'],
+        'email' => $_SESSION['email']]);
 }
 
 
