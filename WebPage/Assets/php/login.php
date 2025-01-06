@@ -91,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Set session variables
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['email'] = $user['email'];
+    $_SESSION['user_name']=$user['name'];
     $_SESSION['logged_in'] = true;
 
     // Successful login
