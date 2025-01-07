@@ -1,0 +1,53 @@
+body {
+    display: flex;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+}
+.sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 15px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    height: 100vh; /* Make the sidebar take up the full height of the viewport */
+    position: fixed; /* Fix the sidebar position */
+    top: 0;
+    left: 0;
+}
+.sidebar h2 {
+    text-align: center;
+}
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+.sidebar ul li {
+    margin: 10px 0;
+}
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.sidebar ul li a:hover {
+    background-color: #ddd;
+}
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    margin-left: 200px; /* Add left margin to make space for the fixed sidebar */
+    overflow-y: auto; /* Add vertical scroll if content overflows */
+    height: 100vh; /* Ensure the content takes the full height of the viewport */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+.day {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+}
+.task {
+    margin-bottom: 10px;
+}
