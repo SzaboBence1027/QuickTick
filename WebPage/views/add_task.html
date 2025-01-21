@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../Assets/css/add_task.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Task</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Add New Task</h2>
+        <form id="add-task-form">
+            <div class="form-group">
+                <label for="t_name">Task Name:</label>
+                <input type="text" id="t_name" name="t_name" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description">
+            </div>
+            <div class="form-group">
+                <label for="label_id">Label ID:</label>
+                <input type="number" id="label_id" name="label_id">
+            </div>
+            <div class="form-group">
+                <label for="priority">Priority:</label>
+                <input type="number" id="priority" name="priority">
+            </div>
+            <div class="form-group">
+                <label for="progresson">Progress:</label>
+                <input type="number" id="progresson" name="progresson">
+            </div>
+            <div class="form-group">
+                <label for="deadline">Deadline:</label>
+                <input type="date" id="deadline" name="deadline">
+            </div>
+            <button type="submit">Add Task</button>
+        </form>
+        <div id="message"></div>
+    </div>
+    <script src="../Assets/js/add_task.js"></script>
+</body>
+</html>
