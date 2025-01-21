@@ -22,7 +22,8 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
             console.log("Sikeres bejelentkezés",data.user_id);
         }
         else {
-            console.log('Login failed:', data.message); // Log the failure message
+            alert('Login failed     :'+ data.message); // Log the failure message
+           
         }
        
     })

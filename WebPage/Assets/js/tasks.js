@@ -1,13 +1,22 @@
-document.addEventListener('DOMContentLoaded', function() {
-    fetchTasks();
+document.getElementById('deadline').addEventListener('change', function() {
+    const selectedDate = this.value;
+    if (selectedDate) {
+        fetchTasks(selectedDate);
+    } else {
+       fetchTasks(Date.now());
+    }
 });
 
-function fetchTasks() {
-    fetch('../Assets/php/tasks.php')
+function fetchTasks(date) {
+    fetch(`../Assets/php/tasks.php?date=${date}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                displayTasks(data.tasks);
+                if (data.tasks) {
+                    displayTasks(data.tasks);
+                } else {
+                    displayMessage(data.message);
+                }
             } else {
                 console.error('Failed to fetch tasks:', data.message);
             }
@@ -58,6 +67,15 @@ function displayTasks(tasks) {
         taskDiv.appendChild(taskDetails);
         container.appendChild(taskDiv);
     });
+}
+
+function displayMessage(message) {
+    const container = document.getElementById('tasks-container');
+    if (!container) {
+        console.error('No element with id "tasks-container" found.');
+        return;
+    }
+    container.innerHTML = `<p>${message}</p>`;
 }
 
 // CSS to hide the task details initially
