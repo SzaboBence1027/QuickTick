@@ -22,7 +22,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
             console.log("Sikeres bejelentkezés",data.user_id);
         }
         else {
-            alert('Login failed     :'+ data.message); // Log the failure message
+            alert('Login failed:'+ data.message); // Log the failure message
            
         }
        
