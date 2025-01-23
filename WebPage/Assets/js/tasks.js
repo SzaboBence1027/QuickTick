@@ -3,14 +3,27 @@ document.getElementById('deadline').addEventListener('change', function() {
     if (selectedDate) {
         fetchTasks(selectedDate);
     } else {
-       fetchTasks(Date.now());
+        fetchTasks(getCurrentDate());
     }
 });
+window.onload = function() {
+    fetchTasks(getCurrentDate());
+};
+
+function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
 
 function fetchTasks(date) {
+    console.log(`Fetching tasks for date: ${date}`); // Debugging line
     fetch(`../Assets/php/tasks.php?date=${date}`)
         .then(response => response.json())
         .then(data => {
+            console.log('Response data:', data); // Debugging line
             if (data.success) {
                 if (data.tasks) {
                     displayTasks(data.tasks);

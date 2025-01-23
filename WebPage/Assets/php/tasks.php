@@ -17,12 +17,12 @@ if (!$selected_date) {
 }
 
 try {
-    $stmt = $pdo->prepare('SELECT * FROM task WHERE user_id = :user_id AND deadline = :selected_date');
+    $stmt = $pdo->prepare('SELECT * FROM task WHERE user_id = :user_id AND deadline = :selected_date ORDER BY priority DESC');
     $stmt->execute(['user_id' => $user_id, 'selected_date' => $selected_date]);
     $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($tasks)) {
-        echo json_encode(['success' => true, 'message' => 'Nincs feladatod mára']);
+        echo json_encode(['success' => true, 'message' => 'Nincs feladatod erre a napra']);
     } else {
         echo json_encode(['success' => true, 'tasks' => $tasks]);
     }
