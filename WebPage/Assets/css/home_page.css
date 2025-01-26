@@ -10,8 +10,8 @@ body {
     background-color: #f4f4f4;
     padding: 15px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    height: 100vh;
-    position: fixed; 
+    height: 100vh; /* Make the sidebar take up the full height of the viewport */
+    position: fixed; /* Fix the sidebar position */
     top: 0;
     left: 0;
 }
@@ -45,10 +45,14 @@ body {
 .content {
     flex-grow: 1;
     padding: 20px;
-    margin-left: 200px; /* Add left margin to make space for the fixed sidebar */
+    margin-left: 220px; /* Add left margin to make space for the fixed sidebar */
     overflow-y: auto; /* Add vertical scroll if content overflows */
     height: 100vh; /* Ensure the content takes the full height of the viewport */
     box-sizing: border-box; /* Include padding in the element's total width and height */
+    display: flex;
+    
+    align-items: flex-start; /* Align items to the top */
+    flex-direction: column; /* Stack items vertically */
 }
 
 .form-group {
@@ -68,4 +72,20 @@ body {
 
 .task {
     margin-bottom: 10px;
+}
+
+
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .sidebar {
+        position: relative; /* Change position to relative */
+        width: 100%; /* Make sidebar take full width */
+        height: auto; /* Adjust height to auto */
+    }
+
+    .content {
+        margin-left: 5%; /* Remove left margin */
+        padding-top: 20px; /* Add padding to the top */
+    }
 }

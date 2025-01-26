@@ -8,6 +8,7 @@ document.getElementById('deadline').addEventListener('change', function() {
 });
 window.onload = function() {
     fetchTasks(getCurrentDate());
+    setDefaultDate();
 };
 
 function getCurrentDate() {
@@ -16,6 +17,12 @@ function getCurrentDate() {
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+}
+function setDefaultDate() {
+    const dateInput = document.getElementById('deadline');
+    if (dateInput) {
+        dateInput.value= getCurrentDate();
+    }
 }
 
 function fetchTasks(date) {
