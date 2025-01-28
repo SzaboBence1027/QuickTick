@@ -3,7 +3,7 @@ function confirmLogout() {
     const userConfirmed = confirm("Are you sure you want to log out?");
     if (userConfirmed) {
         // Make an AJAX request to the logout endpoint
-        fetch('../php/logout', {
+        fetch('../Assets/php/logout.php', {
             method: 'POST', // Use POST method to match RESTful principles
             headers: {
                 'Content-Type': 'application/json'
@@ -12,8 +12,9 @@ function confirmLogout() {
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data.success)
             if (data.success) {
-                window.location.href = "../../views/Login_Page.html"; // Redirect after successful logout
+                window.location.href = "../views/Login_Page.html"; // Redirect after successful logout
             } else {
                 alert('Logout failed. Please try again.');
             }
