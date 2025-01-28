@@ -21,3 +21,21 @@ document.getElementById('add-task-form').addEventListener('submit', function(eve
         document.getElementById('message').innerHTML = `<p style="color: red;">An error occurred</p>`;
     });
 });
+
+window.onload = function() {
+   
+    setDefaultDate();
+};
+function getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+function setDefaultDate() {
+    const dateInput = document.getElementById('deadline');
+    if (dateInput) {
+        dateInput.value= getCurrentDate();
+    }
+}
