@@ -2,7 +2,7 @@
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
     
-    const formDataa = {
+    const formData = {
         email: document.getElementById('lo_email').value,
         password: document.getElementById('lo_password').value
     };
@@ -12,7 +12,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formDataa)
+        body: JSON.stringify(formData)
     })
     .then(response => response.json())
     .then(data => {
