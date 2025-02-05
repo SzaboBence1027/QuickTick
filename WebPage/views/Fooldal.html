@@ -7,22 +7,27 @@
     <title>Tasks</title>
 </head>
 <body>
-    <div class="sidebar">
-        <h2>Dashboard</h2>
+
+<div class="parent">
+    <div class="div1 sidebar ">
         <ul>
             <li><a href="">Home</a></li>
             <li><a href="add_task.html">Új Feladat</a></li>
             <li><a href="#">Profile</a></li>
             <li><a href="#">Settings</a></li>
-            <li> <a href="javascript:confirmLogout();">Log Out</a></li>
-        </ul>
+            <li> <a href="javascript:confirmLogout();">Kijlentkezés</a></li>
+        </ul>    
     </div>
-    <div class="content">
+    <div class="div2"> </div>
+    <div class="div3">
+        
+        <div id="tasks-container" class="day"></div>    
+    </div>
+    <div class="div4"> 
         <div class="form-group">
-            <label for="deadline">Nap</label>
-            <input type="date" id="deadline" name="deadline">
-        </div>
-        <div id="tasks-container" class="day"></div>
+        <label for="deadline">Nap</label>
+        <input type="date" id="deadline" name="deadline">
+    </div></div>
     </div>
     <script src="../Assets/js/tasks.js"></script>
     <script src="../Assets/js/logout.js"></script>
