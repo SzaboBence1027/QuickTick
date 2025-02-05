@@ -11,9 +11,9 @@ document.getElementById('add-task-form').addEventListener('submit', function(eve
     .then(data => {
         const messageDiv = document.getElementById('message');
         if (data.success) {
-            messageDiv.innerHTML = `<p style="color: green;">${data.message}</p>`;
+            messageDiv.innerHTML = `<p style="color: white;">${data.message}</p>`;
         } else {
-            messageDiv.innerHTML = `<p style="color: red;">${data.message}</p>`;
+            messageDiv.innerHTML = `<p style="color: white;">${data.message}</p>`;
         }
     })
     .catch(error => {
