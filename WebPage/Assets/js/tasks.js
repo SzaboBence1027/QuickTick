@@ -6,10 +6,25 @@ document.getElementById('deadline').addEventListener('change', function() {
         fetchTasks(getCurrentDate());
     }
 });
+
+document.getElementById('label-filter').addEventListener('change', function() {
+    const selectedDate = document.getElementById('deadline').value;
+    const selectedLabel = this.value;
+    fetchTasks(selectedDate, selectedLabel);
+});
+
 window.onload = function() {
-    fetchTasks(getCurrentDate());
     setDefaultDate();
+    fetchTasks(getCurrentDate());
+    loadLabels();
 };
+
+function setDefaultDate() {
+    const dateInput = document.getElementById('deadline');
+    if (dateInput) {
+        dateInput.value = getCurrentDate();
+    }
+}
 
 function getCurrentDate() {
     const today = new Date();
@@ -18,24 +33,22 @@ function getCurrentDate() {
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
 }
-function setDefaultDate() {
-    const dateInput = document.getElementById('deadline');
-    if (dateInput) {
-        dateInput.value= getCurrentDate();
-    }
-}
 
-function fetchTasks(date) {
+function fetchTasks(date, labelId = null) {
+    let url = `../Assets/php/tasks.php?date=${date}`;
+    if (labelId) {
+        url += `&label_id=${labelId}`;
+    }
     console.log(`Fetching tasks for date: ${date}`); // Debugging line
-    fetch(`../Assets/php/tasks.php?date=${date}`)
+    fetch(url)
         .then(response => response.json())
         .then(data => {
             console.log('Response data:', data); // Debugging line
             if (data.success) {
-                if (data.tasks) {
+                if (data.tasks && data.tasks.length > 0) {
                     displayTasks(data.tasks);
                 } else {
-                    displayMessage(data.message);
+                    displayMessage(data.message || 'No tasks found for this date.');
                 }
             } else {
                 console.error('Failed to fetch tasks:', data.message);
@@ -55,7 +68,8 @@ function displayTasks(tasks) {
     tasks.forEach(task => {
         const taskDiv = document.createElement('div');
         taskDiv.className = 'task';
-        
+        taskDiv.style.borderLeft = `5px solid ${task.label_color}`; // Add label color
+
         const taskHeader = document.createElement('div');
         taskHeader.className = 'task-header';
         taskHeader.style.cursor = 'pointer';
@@ -81,6 +95,7 @@ function displayTasks(tasks) {
             <p>Fontosság: ${task.priority}</p>
             <p>Előrehaladás: ${task.progresson}</p>
             <p>Határidő: ${task.deadline}</p>
+            <p>Label: ${task.label_name}</p>
         `;
 
         taskDiv.appendChild(taskHeader);
@@ -98,7 +113,27 @@ function displayMessage(message) {
     container.innerHTML = `<p>${message}</p>`;
 }
 
-// CSS to hide the task details initially
+function loadLabels() {
+    fetch('../Assets/php/labels.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const labelFilter = document.getElementById('label-filter');
+                data.labels.forEach(label => {
+                    if (label.l_name !='No Label') { // Exclude "No Label" option
+                        const option = document.createElement('option');
+                        option.value = label.id;
+                        option.textContent = label.l_name;
+                        labelFilter.appendChild(option);
+                    }
+                });
+            } else {
+                console.error('Failed to load labels:', data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
 const style = document.createElement('style');
 style.innerHTML = `
     .task-details.hidden {

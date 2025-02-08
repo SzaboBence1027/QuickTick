@@ -3,6 +3,11 @@ document.getElementById('add-task-form').addEventListener('submit', function(eve
 
     const formData = new FormData(this);
 
+    // Check if label_id is set, if not, append it as an empty string
+    if (!formData.has('label_id') || formData.get('label_id') === '') {
+        formData.set('label_id', '');
+    }
+
     fetch('../Assets/php/add_task.php', {
         method: 'POST',
         body: formData
@@ -23,9 +28,9 @@ document.getElementById('add-task-form').addEventListener('submit', function(eve
 });
 
 window.onload = function() {
-   
     setDefaultDate();
 };
+
 function getCurrentDate() {
     const today = new Date();
     const year = today.getFullYear();
@@ -33,9 +38,10 @@ function getCurrentDate() {
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
 }
+
 function setDefaultDate() {
     const dateInput = document.getElementById('deadline');
     if (dateInput) {
-        dateInput.value= getCurrentDate();
+        dateInput.value = getCurrentDate();
     }
 }

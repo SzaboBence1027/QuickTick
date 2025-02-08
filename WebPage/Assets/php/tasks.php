@@ -10,6 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = intval($_SESSION['user_id']);
 $selected_date = $_GET['date'] ?? null;
+$label_id = $_GET['label_id'] ?? null;
 
 if (!$selected_date) {
     echo json_encode(['success' => false, 'message' => 'Date is required']);
@@ -17,8 +18,25 @@ if (!$selected_date) {
 }
 
 try {
-    $stmt = $pdo->prepare('SELECT * FROM task WHERE user_id = :user_id AND deadline = :selected_date ORDER BY priority DESC');
-    $stmt->execute(['user_id' => $user_id, 'selected_date' => $selected_date]);
+    $query = 'SELECT task.*, label.l_name as label_name, label.color as label_color 
+              FROM task 
+              LEFT JOIN label ON task.label_id = label.id 
+              WHERE task.user_id = :user_id AND task.deadline = :selected_date';
+    
+    if ($label_id) {
+        $query .= ' AND task.label_id = :label_id';
+    }
+    
+    $query .= ' ORDER BY task.priority DESC';
+    
+    $stmt = $pdo->prepare($query);
+    $params = ['user_id' => $user_id, 'selected_date' => $selected_date];
+    
+    if ($label_id) {
+        $params['label_id'] = $label_id;
+    }
+    
+    $stmt->execute($params);
     $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($tasks)) {
