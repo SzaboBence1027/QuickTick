@@ -29,6 +29,8 @@ document.getElementById('add-task-form').addEventListener('submit', function(eve
 
 window.onload = function() {
     setDefaultDate();
+    console.log('Fetching tasks...');
+    loadLabels();
 };
 
 function getCurrentDate() {
@@ -44,4 +46,26 @@ function setDefaultDate() {
     if (dateInput) {
         dateInput.value = getCurrentDate();
     }
+}
+
+function loadLabels() {
+    console.log('Loading labels...');
+    fetch('../Assets/php/labels.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const labelFilter = document.getElementById('label-filter');
+                data.labels.forEach(label => {
+                    if (label.l_name !='No Label') { // Exclude "No Label" option
+                        const option = document.createElement('option');
+                        option.value = label.id;
+                        option.textContent = label.l_name;
+                        labelFilter.appendChild(option);
+                    }
+                });
+            } else {
+                console.error('Failed to load labels:', data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
 }
