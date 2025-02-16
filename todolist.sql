@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2025 at 03:49 PM
+-- Generation Time: Feb 16, 2025 at 02:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -74,7 +74,7 @@ INSERT INTO `label` (`id`, `l_name`, `color`) VALUES
 CREATE TABLE `task` (
   `id` int(11) NOT NULL,
   `t_name` varchar(50) DEFAULT NULL,
-  `description` varchar(100) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `label_id` int(11) DEFAULT NULL,
   `priority` smallint(6) DEFAULT NULL,
