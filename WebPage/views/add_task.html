@@ -2,10 +2,8 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Assets/css/home_page.css">
-    
     <title>Add Task</title>
 </head>
 <body>
@@ -19,40 +17,40 @@
             </ul>    
         </div>
         <div class="div2"> </div>
-    <div class="content div3">
-        <h2>Új Feladat</h2>
-        <form id="add-task-form">
-            <div class="form-group">
-                <label for="t_name">Feladat név:</label>
-                <input type="text" id="t_name" name="t_name" required>
-            </div>
-            <div class="form-group">
-                <label for="description">Leirás:</label>
-                <input type="text" id="description" name="description">
-            </div>
-            <div class="form-group">
-                <select id="label-filter" name="label-filter">
-                    <option value="">All Labels</option>
-                    <!-- Add options dynamically from the database -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="priority">Fontosság:</label>
-                <input type="number" id="priority" name="priority">
-            </div>
-            <div class="form-group">
-                <label for="progresson">Előrehaladás:</label>
-                <input type="number" id="progresson" name="progresson">
-            </div>
-            <div class="form-group">
-                <label for="deadline">Határidő:</label>
-                <input type="date" id="deadline" name="deadline">
-            </div>
-            <button type="submit">Feladat Hozzáadás</button>
-        </form>
-        <div id="message"></div>
-    </div ></div class="div4">
-    </div>
+        <div class="content div3">
+            <h2>Új Feladat</h2>
+            <form id="add-task-form">
+                <div class="form-group">
+                    <label for="t_name">Feladat név:</label>
+                    <input type="text" id="t_name" name="t_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Leirás:</label>
+                    <input type="text" id="description" name="description">
+                </div>
+                <div class="form-group">
+                    <label for="label-filter">Label:</label>
+                    <select id="label-filter" name="label_id">
+                        <option value="">All Labels</option>
+                        <!-- Add options dynamically from the database -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Fontosság:</label>
+                    <input type="number" id="priority" name="priority">
+                </div>
+                <div class="form-group">
+                    <label for="progresson">Előrehaladás:</label>
+                    <input type="number" id="progresson" name="progresson">
+                </div>
+                <div class="form-group">
+                    <label for="deadline">Határidő:</label>
+                    <input type="date" id="deadline" name="deadline">
+                </div>
+                <button type="submit">Feladat Hozzáadás</button>
+            </form>
+            <div id="message"></div>
+        </div>
     </div>
     <script src="../Assets/js/add_task.js"></script>
     <script src="../Assets/js/logout.js"></script>

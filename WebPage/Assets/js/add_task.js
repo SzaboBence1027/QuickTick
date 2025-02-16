@@ -29,8 +29,13 @@ document.getElementById('add-task-form').addEventListener('submit', function(eve
 
 window.onload = function() {
     setDefaultDate();
-    console.log('Fetching tasks...');
     loadLabels();
+
+    // Add event listener to capture selected label ID after the DOM is fully loaded
+    document.getElementById('label-filter').addEventListener('change', function() {
+        const selectedLabelId = this.value;
+        console.log('Selected Label ID:', selectedLabelId);
+    });
 };
 
 function getCurrentDate() {
@@ -47,6 +52,8 @@ function setDefaultDate() {
         dateInput.value = getCurrentDate();
     }
 }
+
+
 
 function loadLabels() {
     console.log('Loading labels...');
@@ -69,3 +76,4 @@ function loadLabels() {
         })
         .catch(error => console.error('Error:', error));
 }
+
