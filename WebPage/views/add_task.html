@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="../Assets/css/input.css">
     <title>Add Task</title>
 </head>
+
 <body>
     <div class="parent">
         <div class="div1 sidebar ">
@@ -15,7 +17,7 @@
                 <li><a href="">Új Feladat</a></li>
                 <li><a href="#">Profile</a></li>
                 <li> <a href="javascript:confirmLogout();">Kijlentkezés</a></li>
-            </ul>    
+            </ul>
         </div>
         <div class="div2"> </div>
         <div class="content div3">
@@ -23,17 +25,17 @@
             <form id="add-task-form">
                 <div class="form-group">
                     <label for="inp" class="inp">
-                        <input type="text" id="t_name" class="inp" name="t_name" placeholder=""&nbsp required>
+                        <input type="text" id="t_name" class="inp" name="t_name" placeholder="" &nbsp required>
                         <span class="label">Feladat név</span>
                         <span class="focus-bg"></span>
-                      </label>
+                    </label>
                 </div>
                 <div class="form-group">
                     <label for="inp" class="inp">
-                        <input type="text" id="description" name="description" placeholder=""&nbsp required>
+                        <input type="text" id="description" name="description" placeholder="" &nbsp required>
                         <span class="label">Leirás</span>
                         <span class="focus-bg"></span>
-                      </label>
+                    </label>
                 </div>
                 <div class="form-group">
                     <label for="label-filter">Label:</label>
@@ -44,7 +46,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inp" class="inp">
-                        <input type="number" id="priority" name="priority" placeholder=""&nbsp required>
+                        <input type="number" id="priority" name="priority" placeholder="" &nbsp required>
                         <span class="label">Fontosság</span>
                         <span class="focus-bg"></span>
                     </label>
@@ -65,4 +67,5 @@
     <script src="../Assets/js/add_task.js"></script>
     <script src="../Assets/js/logout.js"></script>
 </body>
+
 </html>
