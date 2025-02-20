@@ -96,6 +96,8 @@ function displayTasks(tasks) {
             <p>Előrehaladás: ${task.progresson}</p>
             <p>Határidő: ${task.deadline}</p>
             <p>Label: ${task.label_name}</p>
+            <a href="edit_task.html?task_id=${task.id}">Edit Task</a> <!-- Edit link with task ID -->
+            
         `;
 
         taskDiv.appendChild(taskHeader);
