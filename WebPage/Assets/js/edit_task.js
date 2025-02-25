@@ -12,6 +12,7 @@ document.getElementById('edit-task-form').addEventListener('submit', function(ev
         const messageDiv = document.getElementById('message');
         if (data.success) {
             messageDiv.innerHTML = `<p style="color: white;">${data.message}</p>`;
+            window.location.href = `../views/Fooldal.html`;
         } else {
             messageDiv.innerHTML = `<p style="color: white;">${data.message}</p>`;
         }

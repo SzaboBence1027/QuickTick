@@ -1,7 +1,9 @@
 document.getElementById('add-task-form').addEventListener('submit', function(event) {
     event.preventDefault();
-
+    
+    
     const formData = new FormData(this);
+    
 
     // Check if label_id is set, if not, append it as an empty string
     if (!formData.has('label_id') || formData.get('label_id') === '') {
