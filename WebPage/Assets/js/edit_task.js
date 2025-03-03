@@ -24,11 +24,12 @@ document.getElementById('edit-task-form').addEventListener('submit', function(ev
 });
 
 window.onload = function() {
+    loadLabels();
     const taskId = getQueryParameter('task_id');
     if (taskId) {
         loadTaskDetails(taskId);
     }
-    loadLabels();
+    
 };
 
 function getQueryParameter(name) {
@@ -40,11 +41,12 @@ function loadTaskDetails(taskId) {
     fetch(`../Assets/php/get_task.php?task_id=${taskId}`)
         .then(response => response.json())
         .then(data => {
+            const selectElement = document.getElementById('label-filter');
             if (data.success) {
                 document.getElementById('task_id').value = data.task.id;
                 document.getElementById('t_name').value = data.task.t_name;
                 document.getElementById('description').value = data.task.description;
-                document.getElementById('label-filter').value = data.task.label_id;
+                selectElement.selectedIndex = data.task.label_id;
                 document.getElementById('priority').value = data.task.priority;
                 document.getElementById('progresson').value = data.task.progresson;
                 document.getElementById('deadline').value = data.task.deadline;
