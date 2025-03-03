@@ -6,8 +6,17 @@
     <link rel="stylesheet" href="../Assets/css/home_page.css">
     <title>Edit Task</title>
 </head>
-<body>
-    <div class="container">
+<body><div class="parent">
+    <div class="div1 sidebar ">
+        <ul>
+            <li><a href="Fooldal.html">Home</a></li>
+            <li><a href="">Új Feladat</a></li>
+            <li><a href="#">Profile</a></li>
+            <li> <a href="javascript:confirmLogout();">Kijlentkezés</a></li>
+        </ul>
+    </div>
+    <div class="div2"> </div>
+    <div class="content div3">
         <h4 class="title">Edit Task</h4>
         <form id="edit-task-form">
             <input type="hidden" id="task_id" name="task_id" value="32"> <!-- Replace with dynamic task ID -->
@@ -22,7 +31,7 @@
             <div class="form-group">
                 <label for="label-filter">Label</label>
                 <select id="label-filter" name="label_id">
-                    <option value="">Select Label</option>
+                    <option value="1">Select Label</option>
                     <!-- Add options dynamically from the database -->
                 </select>
             </div>
@@ -41,6 +50,7 @@
             <button type="submit">Save Changes</button>
         </form>
         <div id="message"></div>
+    </div>
     </div>
     <script src="../Assets/js/edit_task.js"></script>
 </body>
