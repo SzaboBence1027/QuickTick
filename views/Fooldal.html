@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../Assets/css/home_page.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks</title>
+</head>
+
+<body>
+
+    <div class="parent">
+        <div class="div1 sidebar ">
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="add_task.html">Új Feladat</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li> <a href="javascript:confirmLogout();">Kijlentkezés</a></li>
+            </ul>
+        </div>
+        <div class="div2"> </div>
+        <div class="div3">
+            <label for="label-filter">Label</label>
+            <select id="label-filter" name="label-filter">
+                <option value="">All Labels</option>
+                <!-- Add options dynamically from the database -->
+            </select>
+            <div id="tasks-container" class="day"></div>
+        </div>
+        <div class="div4">
+            <div class="form-group">
+                <label for="deadline">Nap</label>
+                <input type="date" id="deadline" name="deadline">
+            </div>
+        </div>
+    </div>
+    <script src="../Assets/js/tasks.js"></script>
+    <script src="../Assets/js/logout.js"></script>
+</body>
+
+</html>

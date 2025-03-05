@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Bejelentkezés</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="slide navbar style.css">
+	<link rel="stylesheet" href="../Assets/css/Login_Style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<div class="main">
+		<input type="checkbox" id="chk" aria-hidden="true">
+
+		<div class="signup">
+			<form id="registerForm">
+				<label for="chk" aria-hidden="true">Regisztráció</label>
+				<input type="text" name="username" id="username" placeholder="Felhasználónév" required="">
+				<input type="email" name="email" id="email" placeholder="Email" required="">
+				<input type="password" name="password" id="password" placeholder="Jelszó" required="">
+				<button type="submit">Regisztráció</button>
+			</form>
+		</div>
+
+		<div class="login">
+			<form id="loginForm" method="POST" action="/submit">
+				<label for="chk" aria-hidden="true">Bejelentkezés</label>
+				<input type="email" name="email" id="lo_email" placeholder="Email" required="">
+				<input type="password" name="pswd" id="lo_password" placeholder="Jelszó" required="">
+				<button type="submit">Bejelentkezés</button>
+			</form>
+			<p id="errorMessage"></p> <!-- For showing error messages -->
+		</div>
+	</div>
+	<script src="../Assets/js/common.js"></script>
+	<script src="../Assets/js/register.js"></script>
+</body>
+
+</html>
+
