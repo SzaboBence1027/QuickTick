@@ -24,12 +24,14 @@ document.getElementById('edit-task-form').addEventListener('submit', function(ev
 });
 
 window.onload = function() {
-    loadLabels();
     const taskId = getQueryParameter('task_id');
     if (taskId) {
-        loadTaskDetails(taskId);
+        loadLabels().then(() => {
+            loadTaskDetails(taskId);
+        });
+    } else {
+        loadLabels();
     }
-    
 };
 
 function getQueryParameter(name) {
@@ -46,10 +48,18 @@ function loadTaskDetails(taskId) {
                 document.getElementById('task_id').value = data.task.id;
                 document.getElementById('t_name').value = data.task.t_name;
                 document.getElementById('description').value = data.task.description;
-                selectElement.selectedIndex = data.task.label_id;
                 document.getElementById('priority').value = data.task.priority;
+                document.getElementById('priority-value').textContent = data.task.priority;
                 document.getElementById('progresson').value = data.task.progresson;
                 document.getElementById('deadline').value = data.task.deadline;
+
+                // Set the selected option based on the label ID
+                for (let i = 0; i < selectElement.options.length; i++) {
+                    if (selectElement.options[i].value == data.task.label_id) {
+                        selectElement.selectedIndex = i;
+                        break;
+                    }
+                }
             } else {
                 console.error('Failed to load task details:', data.message);
             }
@@ -59,18 +69,17 @@ function loadTaskDetails(taskId) {
 
 function loadLabels() {
     console.log('Loading labels...');
-    fetch('../Assets/php/labels.php')
+    return fetch('../Assets/php/labels.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
                 const labelFilter = document.getElementById('label-filter');
+                labelFilter.innerHTML = ''; // Clear existing options
                 data.labels.forEach(label => {
-                    if (label.l_name !== 'No Label') { // Exclude "No Label" option
-                        const option = document.createElement('option');
-                        option.value = label.id;
-                        option.textContent = label.l_name;
-                        labelFilter.appendChild(option);
-                    }
+                    const option = document.createElement('option');
+                    option.value = label.id;
+                    option.textContent = label.l_name;
+                    labelFilter.appendChild(option);
                 });
             } else {
                 console.error('Failed to load labels:', data.message);
