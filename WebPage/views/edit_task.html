@@ -11,8 +11,8 @@
     <div class="div1 sidebar ">
         <ul>
             <li><a href="Fooldal.html">Home</a></li>
-            <li><a href="">Új Feladat</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="add_task.html">Új Feladat</a></li>
+            <li><a href="profile.html">Profile</a></li>
             <li> <a href="javascript:confirmLogout();">Kijlentkezés</a></li>
         </ul>
     </div>
@@ -22,30 +22,40 @@
         <form id="edit-task-form">
             <input type="hidden" id="task_id" name="task_id" value="32"> <!-- Replace with dynamic task ID -->
             <div class="form-group">
-                <label for="t_name">Task Name</label>
-                <input type="text" id="t_name" name="t_name" required>
+                <label for="inp" class="inp">
+                    <input type="text" id="t_name" class="inp" name="t_name" placeholder="" required>
+                    <span class="label">Feladat név</span>
+                    <span class="focus-bg"></span>
+                </label>
             </div>
             <div class="form-group">
-                <label for="description">Description</label>
-                <input type="text" id="description" name="description">
+                <label for="inp" class="inp">
+                    <input type="text" id="description" class="inp" name="description" placeholder="" required>
+                    <span class="label">Leirás</span>
+                    <span class="focus-bg"></span>
+                </label>
             </div>
             <div class="form-group">
-                <label for="label-filter">Label</label>
+                <label for="label-filter">Label:</label>
                 <select id="label-filter" name="label_id">
-                    <option value="1">Select Label</option>
+                    <option value="">All Labels</option>
                     <!-- Add options dynamically from the database -->
                 </select>
             </div>
             <div class="form-group">
-                <label for="priority">Priority</label>
-                <input type="number" id="priority" name="priority">
+                <label for="inp">
+                    <label for="priority">Fontosság:</label>
+                    <input type="range" id="priority" name="priority" min="0" max="10" value="5" oninput="updatePriorityValue(this.value)">
+                    <br>
+                    <span id="priority-value">5</span>
+                </label>
             </div>
             <div class="form-group">
-                <label for="progresson">Progress</label>
+                <label for="progresson">Előrehaladás:</label>
                 <input type="number" id="progresson" name="progresson">
             </div>
             <div class="form-group">
-                <label for="deadline">Deadline</label>
+                <label for="deadline">Határidő:</label>
                 <input type="date" id="deadline" name="deadline">
             </div>
             <button type="submit">Save Changes</button>
@@ -54,5 +64,10 @@
     </div>
     </div>
     <script src="../Assets/js/edit_task.js"></script>
+    <script>
+        function updatePriorityValue(value) {
+            document.getElementById('priority-value').textContent = value;
+        }
+    </script>
 </body>
 </html>
