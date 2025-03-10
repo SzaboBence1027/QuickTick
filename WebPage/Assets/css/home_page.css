@@ -143,7 +143,7 @@ button{
     }
 * {
 box-sizing: border-box;
-}
+}/*
 .select {
 position: relative;
 min-width: 200px;
@@ -190,7 +190,7 @@ box-shadow: 0 0 0 2px rgba(0,119,255,0.2);
 }
 .select select:hover + svg {
 stroke: #07f;
-}
+}*/
 .sprites {
 position: absolute;
 width: 0;

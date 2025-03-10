@@ -34,7 +34,7 @@ window.onload = function() {
     loadLabels();
 
     // Add event listener to capture selected label ID after the DOM is fully loaded
-    document.getElementById('label-filter').addEventListener('change', function() {
+    document.getElementById('styledSelect1').addEventListener('change', function() {
         const selectedLabelId = this.value;
         console.log('Selected Label ID:', selectedLabelId);
     });
@@ -63,7 +63,7 @@ function loadLabels() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                const labelFilter = document.getElementById('label-filter');
+                const labelFilter = document.getElementById('styledSelect1');
                 data.labels.forEach(label => {
                     if (label.l_name !='No Label') { // Exclude "No Label" option
                         const option = document.createElement('option');

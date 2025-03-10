@@ -43,7 +43,7 @@ function loadTaskDetails(taskId) {
     fetch(`../Assets/php/get_task.php?task_id=${taskId}`)
         .then(response => response.json())
         .then(data => {
-            const selectElement = document.getElementById('label-filter');
+            const selectElement = document.getElementById('styledSelect1');
             if (data.success) {
                 document.getElementById('task_id').value = data.task.id;
                 document.getElementById('t_name').value = data.task.t_name;
@@ -73,7 +73,7 @@ function loadLabels() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                const labelFilter = document.getElementById('label-filter');
+                const labelFilter = document.getElementById('styledSelect1');
                 labelFilter.innerHTML = ''; // Clear existing options
                 data.labels.forEach(label => {
                     const option = document.createElement('option');
