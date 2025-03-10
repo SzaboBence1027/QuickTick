@@ -10,10 +10,22 @@ function getUsers(){
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+        }
+        
     })
     .then(response => response.json())
+    .then(data=>{
+        if(data.success){
+            document.getElementById('Nev').textContent="Név: "+data.user.name;
+            document.getElementById('Email').textContent="Email: "+data.user.email;
+            console.log(data.user.name)
+    }
+    else {
+        console.error('Nem sikerult betolteni az adatokat:', data.message);}
+} 
+        
+        
+        )
     
 
 }

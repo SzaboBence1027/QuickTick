@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo json_encode(['success' => false, 'message' => 'User ID is required']);
         exit;
     }    
+    $user_id=$_SESSION['user_id'];
     try {
         $stmt = $pdo->prepare('SELECT * FROM users WHERE id = :user_id');
             $stmt->execute(['user_id' => $user_id]);
