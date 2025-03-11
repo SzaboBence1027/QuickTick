@@ -56,21 +56,19 @@ function setDefaultDate() {
 }
 
 
-
 function loadLabels() {
     console.log('Loading labels...');
-    fetch('../Assets/php/labels.php')
+    return fetch('../Assets/php/labels.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
                 const labelFilter = document.getElementById('styledSelect1');
+                labelFilter.innerHTML = ''; // Clear existing options
                 data.labels.forEach(label => {
-                    if (label.l_name !='No Label') { // Exclude "No Label" option
-                        const option = document.createElement('option');
-                        option.value = label.id;
-                        option.textContent = label.l_name;
-                        labelFilter.appendChild(option);
-                    }
+                    const option = document.createElement('option');
+                    option.value = label.id;
+                    option.textContent = label.l_name;
+                    labelFilter.appendChild(option);
                 });
             } else {
                 console.error('Failed to load labels:', data.message);

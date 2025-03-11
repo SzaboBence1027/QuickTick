@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 16, 2025 at 02:01 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Gép: 127.0.0.1
+-- Létrehozás ideje: 2025. Már 11. 10:32
+-- Kiszolgáló verziója: 10.4.28-MariaDB
+-- PHP verzió: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `todolist`
+-- Adatbázis: `todolist`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groups`
+-- Tábla szerkezet ehhez a táblához `groups`
 --
 
 CREATE TABLE `groups` (
@@ -36,7 +36,7 @@ CREATE TABLE `groups` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `group_link`
+-- Tábla szerkezet ehhez a táblához `group_link`
 --
 
 CREATE TABLE `group_link` (
@@ -47,7 +47,7 @@ CREATE TABLE `group_link` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `label`
+-- Tábla szerkezet ehhez a táblához `label`
 --
 
 CREATE TABLE `label` (
@@ -57,18 +57,27 @@ CREATE TABLE `label` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `label`
+-- A tábla adatainak kiíratása `label`
 --
 
 INSERT INTO `label` (`id`, `l_name`, `color`) VALUES
-(1, 'No Label', ''),
+(1, 'Nincs cimke', '#96948F'),
 (2, 'Munka', '#33FF57'),
-(3, 'Személyes', '#3357FF');
+(3, 'Személyes', '#3357FF'),
+(4, 'Egészség', '#78E08F'),
+(5, 'Pénzügy', '#F7B93B'),
+(6, 'Tanulás', '#60A3BC'),
+(7, 'Otthon', '#A29BFE'),
+(8, 'Hobbik', '#D980FA'),
+(10, 'Utazás', '#38ADA9'),
+(11, 'Iskola', '#FA983A'),
+(12, 'Vásárlás', '#FDA8DF'),
+(13, 'Javítás', '#E55039');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `task`
+-- Tábla szerkezet ehhez a táblához `task`
 --
 
 CREATE TABLE `task` (
@@ -83,16 +92,30 @@ CREATE TABLE `task` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `task`
+-- A tábla adatainak kiíratása `task`
 --
 
 INSERT INTO `task` (`id`, `t_name`, `description`, `user_id`, `label_id`, `priority`, `progresson`, `deadline`) VALUES
-(25, 'Valami', 'Valami más', 8, 1, 1, 1, '2025-02-08');
+(25, 'Anyas', 'gfkgidjghjdhgjhfdij', 8, 1, 1, 1, '2025-03-05'),
+(26, 'teszt', '2321313', 8, 1, 7, 1, '2025-03-11'),
+(27, 'dsfsfsffsf', 'adsadadsad', 8, 2, 7, 1, '2025-03-11'),
+(28, 'Szemelyes', '012', 8, 3, 5, 1, '2025-03-11'),
+(29, 'Egezseg', '12', 8, 4, 2, 12, '2025-03-11'),
+(30, 'Penzugy', 'dfsf', 8, 5, 3, 2, '2025-03-11'),
+(31, 'Tanulas', 'ds', 8, 6, 3, 3, '2025-03-11'),
+(32, 'Otthon', 'd', 8, 7, 5, 21, '2025-03-11'),
+(33, 'Hobbi', '12', 8, 8, 5, 21, '2025-03-11'),
+(34, 'Utazas', 'sada', 8, 10, 5, 1, '2025-03-11'),
+(35, 'Iskola', 'sdfsf', 8, 11, 1, 1, '2025-03-11'),
+(36, 'Vásárlás', 'sd', 8, 12, 3, 1, '2025-03-11'),
+(37, 'Javitas', '2323', 8, 13, 3, 1212, '2025-03-11'),
+(38, 'Lopás', 'Elkell lopni', 8, 2, 5, 4, '2025-03-10'),
+(39, 'fdgdg', 'dfgd', 8, 1, 5, 1, '2025-03-11');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Tábla szerkezet ehhez a táblához `users`
 --
 
 CREATE TABLE `users` (
@@ -103,7 +126,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- A tábla adatainak kiíratása `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
@@ -111,18 +134,18 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
 (8, 't', 't@gmail.com', '$2y$10$.47uQuIDnux.XBmTefojoefQkeuAWXyk.uwQqs409krvsrQH.T.1S');
 
 --
--- Indexes for dumped tables
+-- Indexek a kiírt táblákhoz
 --
 
 --
--- Indexes for table `groups`
+-- A tábla indexei `groups`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`id`),
   ADD KEY `felhasznalo_id` (`leader_id`);
 
 --
--- Indexes for table `group_link`
+-- A tábla indexei `group_link`
 --
 ALTER TABLE `group_link`
   ADD PRIMARY KEY (`user_id`,`group_id`),
@@ -130,13 +153,13 @@ ALTER TABLE `group_link`
   ADD KEY `group_id` (`group_id`);
 
 --
--- Indexes for table `label`
+-- A tábla indexei `label`
 --
 ALTER TABLE `label`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `task`
+-- A tábla indexei `task`
 --
 ALTER TABLE `task`
   ADD PRIMARY KEY (`id`),
@@ -144,58 +167,58 @@ ALTER TABLE `task`
   ADD KEY `cimke_id` (`label_id`);
 
 --
--- Indexes for table `users`
+-- A tábla indexei `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- A kiírt táblák AUTO_INCREMENT értéke
 --
 
 --
--- AUTO_INCREMENT for table `groups`
+-- AUTO_INCREMENT a táblához `groups`
 --
 ALTER TABLE `groups`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `label`
+-- AUTO_INCREMENT a táblához `label`
 --
 ALTER TABLE `label`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `task`
+-- AUTO_INCREMENT a táblához `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- Constraints for dumped tables
+-- Megkötések a kiírt táblákhoz
 --
 
 --
--- Constraints for table `groups`
+-- Megkötések a táblához `groups`
 --
 ALTER TABLE `groups`
   ADD CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`leader_id`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `group_link`
+-- Megkötések a táblához `group_link`
 --
 ALTER TABLE `group_link`
   ADD CONSTRAINT `group_link_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `group_link_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`);
 
 --
--- Constraints for table `task`
+-- Megkötések a táblához `task`
 --
 ALTER TABLE `task`
   ADD CONSTRAINT `task_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),

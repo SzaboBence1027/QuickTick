@@ -7,7 +7,7 @@ document.getElementById('deadline').addEventListener('change', function() {
     }
 });
 
-document.getElementById('label-filter').addEventListener('change', function() {
+document.getElementById('styledSelect1').addEventListener('change', function() {
     const selectedDate = document.getElementById('deadline').value;
     const selectedLabel = this.value;
     fetchTasks(selectedDate, selectedLabel);
@@ -68,7 +68,7 @@ function displayTasks(tasks) {
     tasks.forEach(task => {
         const taskDiv = document.createElement('div');
         taskDiv.className = 'task';
-        taskDiv.style.borderLeft = `5px solid ${task.label_color}`; // Add label color
+        taskDiv.style.backgroundColor =task.label_color; // Add label color
 
         const taskHeader = document.createElement('div');
         taskHeader.className = 'task-header';
@@ -96,7 +96,8 @@ function displayTasks(tasks) {
             <p>Előrehaladás: ${task.progresson}</p>
             <p>Határidő: ${task.deadline}</p>
             <p>Label: ${task.label_name}</p>
-            <a href="edit_task.html?task_id=${task.id}">Edit Task</a> <!-- Edit link with task ID -->
+            <a class="a_button" href="edit_task.html?task_id=${task.id}">Feladat szerkesztése</a> <!-- Edit link with task ID -->
+          
             
         `;
 
@@ -120,14 +121,14 @@ function loadLabels() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                const labelFilter = document.getElementById('label-filter');
+                const labelFilter = document.getElementById('styledSelect1');
                 data.labels.forEach(label => {
-                    if (label.l_name !='No Label') { // Exclude "No Label" option
+                    
                         const option = document.createElement('option');
                         option.value = label.id;
                         option.textContent = label.l_name;
                         labelFilter.appendChild(option);
-                    }
+                    
                 });
             } else {
                 console.error('Failed to load labels:', data.message);
@@ -135,6 +136,7 @@ function loadLabels() {
         })
         .catch(error => console.error('Error:', error));
 }
+
 
 const style = document.createElement('style');
 style.innerHTML = `
