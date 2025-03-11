@@ -36,7 +36,7 @@ function getCurrentDate() {
 
 function fetchTasks(date, labelId = null) {
     let url = `../Assets/php/tasks.php?date=${date}`;
-    if (labelId) {
+    if (labelId&& labelId !== '1') {
         url += `&label_id=${labelId}`;
     }
     console.log(`Fetching tasks for date: ${date}`); // Debugging line
