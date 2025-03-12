@@ -45,6 +45,7 @@ input[type="date"] {
 .sidebar ul li {
     margin: 10px 0;
     background: #573b8a;
+    
 }
 
 .sidebar ul li a {
@@ -56,6 +57,8 @@ input[type="date"] {
     padding: 10px;
     border-radius: 4px;
     transition: background-color 0.3s;
+    justify-content: center;
+    display: flex;
 }
 
 .sidebar ul li a:hover {
@@ -230,4 +233,12 @@ user-select: none;
     text-align: center;
     width: 25%;
     align-items: left;
+}
+
+.svg{
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+
 }
