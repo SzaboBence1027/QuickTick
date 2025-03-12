@@ -16,11 +16,22 @@ $priority = $_POST['priority'] ?? null;
 $progresson = $_POST['progresson'] ?? null;
 $deadline = $_POST['deadline'] ?? null;
 
+
+function CheckForExistingTask($pdo, $user_id, $t_name, $deadline)
+{
+    $stmt = $pdo->prepare('SELECT * FROM task WHERE user_id = :user_id AND t_name = :t_name AND deadline = :deadline');
+    $stmt->execute(['user_id' => $user_id, 't_name' => $t_name, 'deadline' => $deadline]);
+    return $stmt->fetch() ? true : false;
+}
+
 if (!$t_name || !$deadline) {
     echo json_encode(['success' => false, 'message' => 'Task name and deadline are required']);
     exit;
 }
-
+if (CheckForExistingTask($pdo, $user_id, $t_name, $deadline)) {
+    echo json_encode(['success' => false, 'message' => 'Task already exists on this date']);
+    exit;
+}
 try {
     $stmt = $pdo->prepare('INSERT INTO task (user_id, t_name, description, label_id, priority, progresson, deadline) VALUES (:user_id, :t_name, :description, :label_id, :priority, :progresson, :deadline)');
     $stmt->execute([
