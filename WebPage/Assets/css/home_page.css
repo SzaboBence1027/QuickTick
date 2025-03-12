@@ -3,6 +3,7 @@ body {
     font-family: Arial, sans-serif;
     background: linear-gradient(to bottom, #181441, #3b3579, #303055),no-repeat;
     height: 100%;
+   
     margin: 0;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -65,7 +66,6 @@ input[type="date"] {
     flex-grow: 1;
     padding: 20px;
     margin-left: 220px; /* Add left margin to make space for the fixed sidebar */
-    overflow-y: auto; /* Add vertical scroll if content overflows */
     height: 100vh; /* Ensure the content takes the full height of the viewport */
     box-sizing: border-box; /* Include padding in the element's total width and height */
     display: flex;
@@ -120,6 +120,7 @@ input[type="date"] {
 
 .parent {
     height: 100vh;
+    min-width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 2fr) 6fr 2fr;
     grid-template-rows: 1fr;
