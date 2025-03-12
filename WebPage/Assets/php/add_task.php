@@ -2,7 +2,12 @@
 require_once 'connect.php';
 session_start();
 header('Content-Type: application/json');
-
+function CheckForExistingTask($pdo, $user_id, $t_name, $deadline)
+{
+    $stmt = $pdo->prepare('SELECT * FROM task WHERE user_id = :user_id AND t_name = :t_name AND deadline = :deadline');
+    $stmt->execute(['user_id' => $user_id, 't_name' => $t_name, 'deadline' => $deadline]);
+    return $stmt->fetch() ? true : false;
+}
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(['success' => false, 'message' => 'User ID is required']);
     exit;
@@ -17,12 +22,7 @@ $progresson = $_POST['progresson'] ?? null;
 $deadline = $_POST['deadline'] ?? null;
 
 
-function CheckForExistingTask($pdo, $user_id, $t_name, $deadline)
-{
-    $stmt = $pdo->prepare('SELECT * FROM task WHERE user_id = :user_id AND t_name = :t_name AND deadline = :deadline');
-    $stmt->execute(['user_id' => $user_id, 't_name' => $t_name, 'deadline' => $deadline]);
-    return $stmt->fetch() ? true : false;
-}
+
 
 if (!$t_name || !$deadline) {
     echo json_encode(['success' => false, 'message' => 'Task name and deadline are required']);
