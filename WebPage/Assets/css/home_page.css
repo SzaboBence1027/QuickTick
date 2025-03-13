@@ -138,6 +138,21 @@ input[type="date"] {
     .div3 { grid-area: 1 / 3 / 2 / 4; }
     .div4 { grid-area: 1 / 4 / 2 / 5; }
 
+    .div1_home_page {  
+        grid-row: span 5 / span 5; 
+        position: relative;
+    } 
+    .div2_home_page { 
+        position: relative;
+        grid-column: span 3 / span 3;
+        grid-row: span 5 / span 5;
+     }
+    .div3_home_page { 
+        position: relative;
+        grid-row: span 5 / span 5;
+        grid-column-start: 5;
+    }
+
 
 button{
         width: 30%;

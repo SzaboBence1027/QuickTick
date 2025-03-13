@@ -1,0 +1,1 @@
+//Otthon meg kéne csinálni a törlést 
