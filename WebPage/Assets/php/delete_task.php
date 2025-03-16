@@ -1,30 +1,31 @@
 <?php
-
-session_start();
 require_once 'connect.php';
+session_start();
+header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    $data = json_decode(file_get_contents('php://input'), true);
-    $_SESSION['user_id'] = 8;
-    if (!isset($_SESSION['user_id'])) {
-        echo json_encode(['success' => false, 'message' => 'User ID is required']);
-        exit;
-    }
-    $user_id = intval($_SESSION['user_id']);
-    $t_id = $data['t_id'] ?? null*;
-    if (!$t_id) {
-        echo json_encode(['success' => false, 'message' => 'Task ID is required']);
-        exit;
-    }
-    try {
-        $stmt = $pdo->prepare('DELETE FROM task WHERE user_id = :user_id AND id = :t_id');
-        $stmt->execute(['user_id' => $user_id, 't_id' => $t_id]);
-        echo json_encode(['success' => true, 'message' => 'Task deleted successfully']);
-    } catch (PDOException $e) {
-        echo json_encode(['success' => false, 'message' => 'Query failed: ' . $e->getMessage()]);
-    }
-} 
-else {
-    echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['success' => false, 'message' => 'User ID is required']);
+    exit;
 }
 
+$task_id = $_GET['task_id'] ?? null;
+
+if (!$task_id) {
+    echo json_encode(['success' => false, 'message' => 'Task ID is required']);
+    exit;
+}
+
+try {
+    $query = 'DELETE FROM task WHERE id = :task_id AND user_id = :user_id';
+    $stmt = $pdo->prepare($query);
+    $stmt->execute(['task_id' => $task_id, 'user_id' => $_SESSION['user_id']]);
+
+    if ($stmt->rowCount() > 0) {
+        echo json_encode(['success' => true, 'message' => 'Task deleted successfully']);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Task not found or not authorized']);
+    }
+} catch (PDOException $e) {
+    echo json_encode(['success' => false, 'message' => 'Query failed: ' . $e->getMessage()]);
+}
+?>
