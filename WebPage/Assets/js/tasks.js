@@ -65,77 +65,132 @@ function displayTasks(tasks) {
     }
     container.innerHTML = '';
 
+// Define a function to get the label color based on the task's label_color
+function getLabelColor(labelColor) {
+    return labelColor || 'gray';  // Default color if no label color is set
+}
 
-    tasks.forEach(task => { 
-        const taskDiv = document.createElement('div');
-        taskDiv.className = 'task';
-        taskDiv.id = `task-${task.id}`;
-    
-        // Replace the original task HTML with the new ag-courses_item structure
-        const coursesItemDiv = document.createElement('div');
-        coursesItemDiv.className = 'ag-courses_item';
-    
-        // Keep the initial background fully opaque black
-        coursesItemDiv.style.backgroundColor = 'black';  // No dimming here initially
-    
-        coursesItemDiv.innerHTML = `
-            <a href="#" class="ag-courses-item_link">
-                <div class="ag-courses-item_bg"></div> <!-- New background -->
-                <div class="ag-courses-item_title">
-                    ${task.t_name} <!-- Display task name -->
-                </div>
-                <div class="ag-courses-item_date-box">
-                    Start:
-                    <span class="ag-courses-item_date">
-                        ${task.deadline} <!-- Display task deadline -->
-                    </span>
-                </div>
-            </a>
-        `;
-    
-        // Append the task name, deadline, and background to the taskDiv
-        taskDiv.appendChild(coursesItemDiv);
-    
-        // Add task-specific details below the ag-courses_item structure inside the same div
-        const taskDetailsDiv = document.createElement('div');
-        taskDetailsDiv.className = 'task-details';
-    
-        taskDetailsDiv.innerHTML = `
-            <p>Description: ${task.description}</p>
-            <p>Priority: ${task.priority}</p>
-            <p>Progress: ${task.progresson}</p>
-            <p>Label: ${task.label_name}</p>
-            <!-- Edit link with task ID -->
-            <a href="edit_task.html?task_id=${task.id}" class="edit-task-link">
-                Edit Task
-            </a>
-            <!-- Delete button -->
-            <button onclick="deleteTask(${task.id})" class="delete-task-button">
-                Delete Task
-            </button>
-        `;
-    
-        // Hide the task details initially
-        taskDetailsDiv.style.display = 'none';
-    
-        // Append the task details to the coursesItemDiv (which now has the black background)
-        coursesItemDiv.appendChild(taskDetailsDiv);
-    
-        // Add click event to toggle the visibility of task details
-        coursesItemDiv.addEventListener('click', () => {
-            const isVisible = taskDetailsDiv.style.display === 'block';
-            if (isVisible) {
-                taskDetailsDiv.style.display = 'none';  // Hide the details
-                coursesItemDiv.style.backgroundColor = 'black';  // Keep background black
-            } else {
-                taskDetailsDiv.style.display = 'block';  // Show the details
-                coursesItemDiv.style.backgroundColor = 'black';  // Keep background black when opened
-            }
-        });
-    
-        // Finally, append the updated taskDiv (now with the new background and details) to the container
-        container.appendChild(taskDiv);
+tasks.forEach(task => { 
+    const taskDiv = document.createElement('div');
+    taskDiv.className = 'task';
+    taskDiv.id = `task-${task.id}`;
+
+    // Create the main container div for the task
+    const coursesItemDiv = document.createElement('div');
+    coursesItemDiv.className = 'ag-courses_item';
+
+    // Get the color based on the task's label_color
+    const labelColor = getLabelColor(task.label_color);
+
+    // Set the initial background color to the color based on the task's label
+    coursesItemDiv.style.backgroundColor = labelColor;
+
+    // Set an initial transition time for smooth color change
+    coursesItemDiv.style.transition = 'background-color 0.5s ease';  // 0.5s smooth transition
+
+    coursesItemDiv.innerHTML = `
+        <a href="#" class="ag-courses-item_link">
+            <div class="ag-courses-item_bg"></div> <!-- New background -->
+            <div class="ag-courses-item_title">
+                ${task.t_name} <!-- Display task name -->
+            </div>
+            <div class="ag-courses-item_date-box">
+                Start:
+                <span class="ag-courses-item_date">
+                    ${task.deadline} <!-- Display task deadline -->
+                </span>
+            </div>
+        </a>
+    `;
+
+    // Append the task name, deadline, and background to the taskDiv
+    taskDiv.appendChild(coursesItemDiv);
+
+    // Add task-specific details below the ag-courses_item structure inside the same div
+    const taskDetailsDiv = document.createElement('div');
+    taskDetailsDiv.className = 'task-details';
+
+    // Get the label name from task.label_name
+    const labelName = task.label_name || 'No Label';  // Default label name if not provided
+
+    taskDetailsDiv.innerHTML = `
+        <p>Description: ${task.description}</p>
+        <p>Priority: ${task.priority}</p>
+        <p>Progress: ${task.progresson}</p>
+        <p>Label: ${labelName}</p>  <!-- Show label name instead of color code -->
+        <!-- Edit link with task ID -->
+        <a href="edit_task.html?task_id=${task.id}" class="edit-task-link">
+            Edit Task
+        </a>
+        <!-- Delete button -->
+        <button onclick="deleteTask(${task.id})" class="delete-task-button">
+            Delete Task
+        </button>
+    `;
+
+    // Hide the task details initially
+    taskDetailsDiv.style.display = 'none';
+
+    // Append the task details to the coursesItemDiv
+    coursesItemDiv.appendChild(taskDetailsDiv);
+
+    // Add click event to toggle the visibility of task details
+    coursesItemDiv.addEventListener('click', () => {
+        const isVisible = taskDetailsDiv.style.display === 'block';
+        if (isVisible) {
+            taskDetailsDiv.style.display = 'none';  // Hide the details
+            // Maintain the same background color when hidden
+            coursesItemDiv.style.backgroundColor = labelColor;  
+        } else {
+            taskDetailsDiv.style.display = 'block';  // Show the details
+            // Animate the background color transition smoothly based on label color
+            animateColorChange(coursesItemDiv, labelColor);
+        }
     });
+
+    // Function to animate the background color change smoothly
+    function animateColorChange(element, targetColor) {
+        let currentColor = window.getComputedStyle(element).backgroundColor;
+        let animationFrame;
+
+        // Set the color transition smoothly
+        let interval = setInterval(() => {
+            // Convert the current color and target color from RGB to individual components
+            let currentColorRGB = rgbToRgbArray(currentColor);
+            let targetColorRGB = rgbToRgbArray(targetColor);
+
+            // Calculate the new RGB values for smooth transition
+            let newRed = Math.round(currentColorRGB[0] + (targetColorRGB[0] - currentColorRGB[0]) * 0.1);
+            let newGreen = Math.round(currentColorRGB[1] + (targetColorRGB[1] - currentColorRGB[1]) * 0.1);
+            let newBlue = Math.round(currentColorRGB[2] + (targetColorRGB[2] - currentColorRGB[2]) * 0.1);
+
+            // Apply the new color as RGB
+            element.style.backgroundColor = `rgb(${newRed}, ${newGreen}, ${newBlue})`;
+
+            // Stop the interval once the color is fully transitioned
+            if (
+                Math.abs(newRed - targetColorRGB[0]) < 5 &&
+                Math.abs(newGreen - targetColorRGB[1]) < 5 &&
+                Math.abs(newBlue - targetColorRGB[2]) < 5
+            ) {
+                clearInterval(interval);
+                element.style.backgroundColor = targetColor;  // Ensure it sets to exact target color
+            }
+        }, 50);  // Adjust the interval for smoothness (lower = smoother)
+    }
+
+    // Helper function to convert RGB color from 'rgb(r, g, b)' to an array [r, g, b]
+    function rgbToRgbArray(rgb) {
+        const match = rgb.match(/\d+/g);
+        return match ? match.map(Number) : [0, 0, 0];  // Default to black if parsing fails
+    }
+
+    // Finally, append the updated taskDiv (now with the new background and details) to the container
+    container.appendChild(taskDiv);
+});
+
+    
+
     
     /*tasks.forEach(task => {
         const taskDiv = document.createElement('div');
