@@ -36,161 +36,84 @@ function getCurrentDate() {
 
 function fetchTasks(date, labelId = null) {
     let url = `../Assets/php/tasks.php?date=${date}`;
-    if (labelId&& labelId !== '1') {
+    if (labelId && labelId !== '') {
         url += `&label_id=${labelId}`;
     }
-    console.log(`Fetching tasks for date: ${date}`); // Debugging line
+
     fetch(url)
         .then(response => response.json())
         .then(data => {
             console.log('Response data:', data); // Debugging line
             if (data.success) {
                 if (data.tasks && data.tasks.length > 0) {
+                    // If tasks are available, display them
                     displayTasks(data.tasks);
                 } else {
+                    // If no tasks are available, display a message
                     displayMessage(data.message || 'No tasks found for this date.');
                 }
             } else {
-                console.error('Failed to fetch tasks:', data.message);
+                // If the server returns an error, display the error message
+                displayMessage(data.message || 'Failed to fetch tasks.');
             }
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            displayMessage('An error occurred while fetching tasks.');
+        });
 }
 
 function displayTasks(tasks) {
-    const container = document.getElementById('tasks-container');
+    const parentContainer = document.getElementById('tasks-container'); // Parent container
+    let container = document.querySelector('.ag-courses_box'); // Try to find the container
+
+    // If the .ag-courses_box container doesn't exist, create it
     if (!container) {
-        console.error('No element with id "tasks-container" found.');
-        return;
+        container = document.createElement('div');
+        container.className = 'ag-courses_box';
+        parentContainer.appendChild(container); // Append it to the parent container
     }
-    container.innerHTML = '';
 
-// Define a function to get the label color based on the task's label_color
-function getLabelColor(labelColor) {
-    return labelColor || 'gray';  // Default color if no label color is set
-}
+    container.innerHTML = ''; // Clear existing tasks
 
-tasks.forEach(task => { 
-    const taskDiv = document.createElement('div');
-    taskDiv.className = 'task';
-    taskDiv.id = `task-${task.id}`;
+    tasks.forEach(task => {
+        // Create the card container
+        const taskCard = document.createElement('div');
+        taskCard.className = 'ag-courses_item';
 
-    // Create the main container div for the task
-    const coursesItemDiv = document.createElement('div');
-    coursesItemDiv.className = 'ag-courses_item';
+        // Create the link wrapper
+        const taskLink = document.createElement('a');
+        taskLink.href = '#';
+        taskLink.className = 'ag-courses-item_link';
 
-    // Get the color based on the task's label_color
-    const labelColor = getLabelColor(task.label_color);
+        // Background div (set the label color dynamically)
+        const taskBg = document.createElement('div');
+        taskBg.className = 'ag-courses-item_bg';
+        taskBg.style.backgroundColor = task.label_color || '#f9b234'; // Default color if no label color is provided
 
-    // Set the initial background color to the color based on the task's label
-    coursesItemDiv.style.backgroundColor = labelColor;
+        // Task title
+        const taskTitle = document.createElement('div');
+        taskTitle.className = 'ag-courses-item_title';
+        taskTitle.textContent = task.t_name;
 
-    // Set an initial transition time for smooth color change
-    coursesItemDiv.style.transition = 'background-color 0.5s ease';  // 0.5s smooth transition
+        // Task date box
+        const taskDateBox = document.createElement('div');
+        taskDateBox.className = 'ag-courses-item_date-box';
+        taskDateBox.innerHTML = `
+            Deadline:
+            <span class="ag-courses-item_date">${task.deadline}</span>
+        `;
 
-    coursesItemDiv.innerHTML = `
-        <a href="#" class="ag-courses-item_link">
-            <div class="ag-courses-item_bg"></div> <!-- New background -->
-            <div class="ag-courses-item_title">
-                ${task.t_name} <!-- Display task name -->
-            </div>
-            <div class="ag-courses-item_date-box">
-                Start:
-                <span class="ag-courses-item_date">
-                    ${task.deadline} <!-- Display task deadline -->
-                </span>
-            </div>
-        </a>
-    `;
+        // Append elements to build the card
+        taskLink.appendChild(taskBg);
+        taskLink.appendChild(taskTitle);
+        taskLink.appendChild(taskDateBox);
+        taskCard.appendChild(taskLink);
 
-    // Append the task name, deadline, and background to the taskDiv
-    taskDiv.appendChild(coursesItemDiv);
-
-    // Add task-specific details below the ag-courses_item structure inside the same div
-    const taskDetailsDiv = document.createElement('div');
-    taskDetailsDiv.className = 'task-details';
-
-    // Get the label name from task.label_name
-    const labelName = task.label_name || 'No Label';  // Default label name if not provided
-
-    taskDetailsDiv.innerHTML = `
-        <p>Description: ${task.description}</p>
-        <p>Priority: ${task.priority}</p>
-        <p>Progress: ${task.progresson}</p>
-        <p>Label: ${labelName}</p>  <!-- Show label name instead of color code -->
-        <!-- Edit link with task ID -->
-        <a href="edit_task.html?task_id=${task.id}" class="edit-task-link">
-            Edit Task
-        </a>
-        <!-- Delete button -->
-        <button onclick="deleteTask(${task.id})" class="delete-task-button">
-            Delete Task
-        </button>
-    `;
-
-    // Hide the task details initially
-    taskDetailsDiv.style.display = 'none';
-
-    // Append the task details to the coursesItemDiv
-    coursesItemDiv.appendChild(taskDetailsDiv);
-
-    // Add click event to toggle the visibility of task details
-    coursesItemDiv.addEventListener('click', () => {
-        const isVisible = taskDetailsDiv.style.display === 'block';
-        if (isVisible) {
-            taskDetailsDiv.style.display = 'none';  // Hide the details
-            // Maintain the same background color when hidden
-            coursesItemDiv.style.backgroundColor = labelColor;  
-        } else {
-            taskDetailsDiv.style.display = 'block';  // Show the details
-            // Animate the background color transition smoothly based on label color
-            animateColorChange(coursesItemDiv, labelColor);
-        }
+        // Append the card to the container
+        container.appendChild(taskCard);
     });
-
-    // Function to animate the background color change smoothly
-    function animateColorChange(element, targetColor) {
-        let currentColor = window.getComputedStyle(element).backgroundColor;
-        let animationFrame;
-
-        // Set the color transition smoothly
-        let interval = setInterval(() => {
-            // Convert the current color and target color from RGB to individual components
-            let currentColorRGB = rgbToRgbArray(currentColor);
-            let targetColorRGB = rgbToRgbArray(targetColor);
-
-            // Calculate the new RGB values for smooth transition
-            let newRed = Math.round(currentColorRGB[0] + (targetColorRGB[0] - currentColorRGB[0]) * 0.1);
-            let newGreen = Math.round(currentColorRGB[1] + (targetColorRGB[1] - currentColorRGB[1]) * 0.1);
-            let newBlue = Math.round(currentColorRGB[2] + (targetColorRGB[2] - currentColorRGB[2]) * 0.1);
-
-            // Apply the new color as RGB
-            element.style.backgroundColor = `rgb(${newRed}, ${newGreen}, ${newBlue})`;
-
-            // Stop the interval once the color is fully transitioned
-            if (
-                Math.abs(newRed - targetColorRGB[0]) < 5 &&
-                Math.abs(newGreen - targetColorRGB[1]) < 5 &&
-                Math.abs(newBlue - targetColorRGB[2]) < 5
-            ) {
-                clearInterval(interval);
-                element.style.backgroundColor = targetColor;  // Ensure it sets to exact target color
-            }
-        }, 50);  // Adjust the interval for smoothness (lower = smoother)
-    }
-
-    // Helper function to convert RGB color from 'rgb(r, g, b)' to an array [r, g, b]
-    function rgbToRgbArray(rgb) {
-        const match = rgb.match(/\d+/g);
-        return match ? match.map(Number) : [0, 0, 0];  // Default to black if parsing fails
-    }
-
-    // Finally, append the updated taskDiv (now with the new background and details) to the container
-    container.appendChild(taskDiv);
-});
-
-    
-
+}
     
     /*tasks.forEach(task => {
         const taskDiv = document.createElement('div');
@@ -235,16 +158,24 @@ tasks.forEach(task => {
         taskDiv.appendChild(taskDetails);
         container.appendChild(taskDiv);
     });*/
-}
 
-function displayMessage(message) {
-    const container = document.getElementById('tasks-container');
-    if (!container) {
-        console.error('No element with id "tasks-container" found.');
-        return;
+    function displayMessage(message) {
+        const container = document.getElementById('tasks-container');
+        if (!container) {
+            console.error('No element with id "tasks-container" found.');
+            return;
+        }
+    
+        // Clear existing tasks or messages
+        container.innerHTML = '';
+    
+        // Create and display the message
+        const messageElement = document.createElement('p');
+        messageElement.textContent = message;
+        messageElement.style.color = 'white'; // Optional: Style the message
+        messageElement.style.textAlign = 'center'; // Optional: Center the message
+        container.appendChild(messageElement);
     }
-    container.innerHTML = `<p>${message}</p>`;
-}
 
 function loadLabels() {
     fetch('../Assets/php/labels.php')

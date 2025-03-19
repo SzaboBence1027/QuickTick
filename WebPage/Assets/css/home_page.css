@@ -280,26 +280,19 @@ user-select: none;
     background-color: #000;
   }
   .ag-courses_box {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: flex-start;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-  
-    padding: 50px 0;
+    display: flex; /* Use Flexbox for layout */
+    flex-wrap: wrap; /* Allow wrapping to the next row */
+    gap: 20px; /* Add consistent spacing between cards */
+    justify-content: flex-start; /* Align items to the start of the row */
+    padding: 20px 0;
   }
   .ag-courses_item {
-    -ms-flex-preferred-size: calc(33.33333% - 30px);
-    flex-basis: calc(33.33333% - 30px);
-  
-    margin: 0 15px 30px;
-  
+    flex: 1 1 calc(33.333% - 20px); /* 3 cards per row */
+    max-width: calc(33.333% - 20px); /* Ensure cards don't exceed 3 per row */
+    margin: 0; /* Remove extra margin */
     overflow: hidden;
-  
     border-radius: 28px;
+    box-sizing: border-box; /* Include padding and border in width/height */
   }
   .ag-courses-item_link {
     display: block;
@@ -381,16 +374,19 @@ user-select: none;
   }
   
   
-  
   @media only screen and (max-width: 979px) {
     .ag-courses_item {
-      -ms-flex-preferred-size: calc(50% - 30px);
-      flex-basis: calc(50% - 30px);
+        flex: 1 1 calc(50% - 20px); /* 2 cards per row for smaller screens */
+        max-width: calc(50% - 20px);
     }
-    .ag-courses-item_title {
-      font-size: 24px;
+}
+
+@media only screen and (max-width: 639px) {
+    .ag-courses_item {
+        flex: 1 1 100%; /* 1 card per row for very small screens */
+        max-width: 100%;
     }
-  }
+}
   
   @media only screen and (max-width: 767px) {
     .ag-format-container {
