@@ -14,3 +14,11 @@ cimkek(id,c_nev)
 
 
 https://www.php-dev-zone.com/post/simplified-ajax-login-form-using-php-and-jquery
+
+
+
+Főoldal:
+
+Slide show funkciókról
+About Us rész
+
