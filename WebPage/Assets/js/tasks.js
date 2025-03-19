@@ -64,7 +64,9 @@ function displayTasks(tasks) {
         return;
     }
     container.innerHTML = '';
-    tasks.forEach(task => {
+
+
+    tasks.forEach(task => { 
         const taskDiv = document.createElement('div');
         taskDiv.className = 'task';
         taskDiv.id = `task-${task.id}`;
@@ -73,8 +75,8 @@ function displayTasks(tasks) {
         const coursesItemDiv = document.createElement('div');
         coursesItemDiv.className = 'ag-courses_item';
     
-        // Apply black background here
-        coursesItemDiv.style.backgroundColor = 'black';  // Keep the black background for the entire task item
+        // Keep the initial background fully opaque black
+        coursesItemDiv.style.backgroundColor = 'black';  // No dimming here initially
     
         coursesItemDiv.innerHTML = `
             <a href="#" class="ag-courses-item_link">
@@ -122,15 +124,19 @@ function displayTasks(tasks) {
         // Add click event to toggle the visibility of task details
         coursesItemDiv.addEventListener('click', () => {
             const isVisible = taskDetailsDiv.style.display === 'block';
-            taskDetailsDiv.style.display = isVisible ? 'none' : 'block';  // Toggle visibility
+            if (isVisible) {
+                taskDetailsDiv.style.display = 'none';  // Hide the details
+                coursesItemDiv.style.backgroundColor = 'black';  // Keep background black
+            } else {
+                taskDetailsDiv.style.display = 'block';  // Show the details
+                coursesItemDiv.style.backgroundColor = 'black';  // Keep background black when opened
+            }
         });
     
         // Finally, append the updated taskDiv (now with the new background and details) to the container
         container.appendChild(taskDiv);
     });
     
-    
-
     /*tasks.forEach(task => {
         const taskDiv = document.createElement('div');
         taskDiv.className = `task`;
