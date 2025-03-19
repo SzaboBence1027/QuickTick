@@ -64,8 +64,74 @@ function displayTasks(tasks) {
         return;
     }
     container.innerHTML = '';
-
     tasks.forEach(task => {
+        const taskDiv = document.createElement('div');
+        taskDiv.className = 'task';
+        taskDiv.id = `task-${task.id}`;
+    
+        // Replace the original task HTML with the new ag-courses_item structure
+        const coursesItemDiv = document.createElement('div');
+        coursesItemDiv.className = 'ag-courses_item';
+    
+        // Apply black background here
+        coursesItemDiv.style.backgroundColor = 'black';  // Keep the black background for the entire task item
+    
+        coursesItemDiv.innerHTML = `
+            <a href="#" class="ag-courses-item_link">
+                <div class="ag-courses-item_bg"></div> <!-- New background -->
+                <div class="ag-courses-item_title">
+                    ${task.t_name} <!-- Display task name -->
+                </div>
+                <div class="ag-courses-item_date-box">
+                    Start:
+                    <span class="ag-courses-item_date">
+                        ${task.deadline} <!-- Display task deadline -->
+                    </span>
+                </div>
+            </a>
+        `;
+    
+        // Append the task name, deadline, and background to the taskDiv
+        taskDiv.appendChild(coursesItemDiv);
+    
+        // Add task-specific details below the ag-courses_item structure inside the same div
+        const taskDetailsDiv = document.createElement('div');
+        taskDetailsDiv.className = 'task-details';
+    
+        taskDetailsDiv.innerHTML = `
+            <p>Description: ${task.description}</p>
+            <p>Priority: ${task.priority}</p>
+            <p>Progress: ${task.progresson}</p>
+            <p>Label: ${task.label_name}</p>
+            <!-- Edit link with task ID -->
+            <a href="edit_task.html?task_id=${task.id}" class="edit-task-link">
+                Edit Task
+            </a>
+            <!-- Delete button -->
+            <button onclick="deleteTask(${task.id})" class="delete-task-button">
+                Delete Task
+            </button>
+        `;
+    
+        // Hide the task details initially
+        taskDetailsDiv.style.display = 'none';
+    
+        // Append the task details to the coursesItemDiv (which now has the black background)
+        coursesItemDiv.appendChild(taskDetailsDiv);
+    
+        // Add click event to toggle the visibility of task details
+        coursesItemDiv.addEventListener('click', () => {
+            const isVisible = taskDetailsDiv.style.display === 'block';
+            taskDetailsDiv.style.display = isVisible ? 'none' : 'block';  // Toggle visibility
+        });
+    
+        // Finally, append the updated taskDiv (now with the new background and details) to the container
+        container.appendChild(taskDiv);
+    });
+    
+    
+
+    /*tasks.forEach(task => {
         const taskDiv = document.createElement('div');
         taskDiv.className = `task`;
         taskDiv.style.backgroundColor =task.label_color; // Add label color
@@ -107,7 +173,7 @@ function displayTasks(tasks) {
         taskDiv.appendChild(taskHeader);
         taskDiv.appendChild(taskDetails);
         container.appendChild(taskDiv);
-    });
+    });*/
 }
 
 function displayMessage(message) {
