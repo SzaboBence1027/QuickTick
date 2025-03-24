@@ -22,3 +22,11 @@ Főoldal:
 Slide show funkciókról
 About Us rész
 
+
+
+https://codepen.io/NielsVoogt/pen/XWjPdjO taskra rákattintva bedobja a leirast hatter szin a label color
+profil name eamil változtatás
+edit task vissza kell rakni delete task nem müködik megint
+
+
+
