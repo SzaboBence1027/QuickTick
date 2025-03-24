@@ -66,7 +66,7 @@ function fetchTasks(date, labelId = null) {
 function displayTasks(tasks) {
     const parentContainer = document.getElementById('tasks-container'); // Parent container
     let container = document.querySelector('.ag-courses_box'); // Try to find the container
-
+    parentContainer.innerHTML = '';
     // If the .ag-courses_box container doesn't exist, create it
     if (!container) {
         container = document.createElement('div');
@@ -103,6 +103,10 @@ function displayTasks(tasks) {
             Határidő:
             <span class="ag-courses-item_date">${task.deadline}</span>
         `;
+        taskLink.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent default link behavior
+            openModal(task.t_name, task.description,task.label_color); // Pass task title and description to the modal
+        });
 
         // Append elements to build the card
         taskLink.appendChild(taskBg);
@@ -114,6 +118,32 @@ function displayTasks(tasks) {
         container.appendChild(taskCard);
     });
 }
+function openModal(title, description,color) {
+    const modal = document.getElementById('task-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+
+    modalTitle.textContent = title; // Set the task title
+    modalDescription.textContent = `Leírás: ${description}` ; // Set the task description
+
+    modal.style.display = 'block'; // Show the modal
+   const modalContent = document.querySelector('.modal-content');
+    modalContent.style.backgroundColor = color; // Set the label color as the background color
+}
+
+// Close the modal when the "X" button is clicked
+document.querySelector('.close').addEventListener('click', function () {
+    const modal = document.getElementById('task-modal');
+    modal.style.display = 'none';
+});
+
+// Close the modal when clicking outside the modal content
+window.addEventListener('click', function (event) {
+    const modal = document.getElementById('task-modal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
     
     /*tasks.forEach(task => {
         const taskDiv = document.createElement('div');
