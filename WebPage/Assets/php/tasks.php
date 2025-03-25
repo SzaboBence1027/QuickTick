@@ -18,29 +18,35 @@ if (!$selected_date) {
 }
 
 try {
+    // Base query
     $query = 'SELECT task.*, label.l_name as label_name, label.color as label_color 
               FROM task 
               LEFT JOIN label ON task.label_id = label.id 
               WHERE task.user_id = :user_id AND task.deadline = :selected_date';
-    
-    if ($label_id) {
+
+    // Add label filter only if label_id is provided
+    if (!empty($label_id)) {
         $query .= ' AND task.label_id = :label_id';
     }
-    
+
     $query .= ' ORDER BY task.priority DESC';
-    
+
+    // Debugging: Log the query and parameters
+    error_log("Query: $query");
+    error_log("Parameters: " . json_encode(['user_id' => $user_id, 'selected_date' => $selected_date, 'label_id' => $label_id]));
+
     $stmt = $pdo->prepare($query);
     $params = ['user_id' => $user_id, 'selected_date' => $selected_date];
-    
-    if ($label_id) {
+
+    if (!empty($label_id)) {
         $params['label_id'] = $label_id;
     }
-    
+
     $stmt->execute($params);
     $tasks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($tasks)) {
-        echo json_encode(['success' => true, 'message' => 'Nincs feladatod erre a napra']);
+        echo json_encode(['success' => true, 'tasks' => [], 'message' => 'Nincs feladatod erre a napra']);
     } else {
         echo json_encode(['success' => true, 'tasks' => $tasks]);
     }

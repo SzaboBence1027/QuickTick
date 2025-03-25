@@ -7,10 +7,18 @@ document.getElementById('deadline').addEventListener('change', function() {
     }
 });
 
-document.getElementById('styledSelect1').addEventListener('change', function() {
-    const selectedDate = document.getElementById('deadline').value;
-    const selectedLabel = this.value;
-    fetchTasks(selectedDate, selectedLabel);
+document.getElementById('styledSelect1').addEventListener('change', function () {
+    const selectedDate = document.getElementById('deadline').value; // Get the selected date
+    const selectedLabel = this.value; // Get the selected label ID
+
+    console.log(`Selected label value: "${selectedLabel}"`); // Debugging line
+
+    // If the first option ("Minden címke") is selected, do not send label_id
+    if (selectedLabel === '' || selectedLabel === "1") {
+        fetchTasks(selectedDate); // Fetch tasks without label_id
+    } else {
+        fetchTasks(selectedDate, selectedLabel); // Fetch tasks with label_id
+    }
 });
 
 window.onload = function() {
@@ -33,28 +41,24 @@ function getCurrentDate() {
     const day = String(today.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
 }
-
 function fetchTasks(date, labelId = null) {
     let url = `../Assets/php/tasks.php?date=${date}`;
+    
+    // Only include label_id if it's not empty or null
     if (labelId && labelId !== '') {
         url += `&label_id=${labelId}`;
     }
+
+    console.log(`Fetching tasks with URL: ${url}`); // Debugging line
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
             console.log('Response data:', data); // Debugging line
-            if (data.success) {
-                if (data.tasks && data.tasks.length > 0) {
-                    // If tasks are available, display them
-                    displayTasks(data.tasks);
-                } else {
-                    // If no tasks are available, display a message
-                    displayMessage(data.message || 'No tasks found for this date.');
-                }
+            if (data.success && data.tasks && data.tasks.length > 0) {
+                displayTasks(data.tasks); // Show tasks
             } else {
-                // If the server returns an error, display the error message
-                displayMessage(data.message || 'Failed to fetch tasks.');
+                displayMessage(data.message || 'Nincs feladatod erre a napra.'); // Show message
             }
         })
         .catch(error => {
@@ -62,21 +66,23 @@ function fetchTasks(date, labelId = null) {
             displayMessage('An error occurred while fetching tasks.');
         });
 }
-
 function displayTasks(tasks) {
     const parentContainer = document.getElementById('tasks-container'); // Parent container
     let container = document.querySelector('.ag-courses_box'); // Try to find the container
-    parentContainer.innerHTML = '';
-    // If the .ag-courses_box container doesn't exist, create it
-    if (!container) {
-        container = document.createElement('div');
-        container.className = 'ag-courses_box';
-        parentContainer.appendChild(container); // Append it to the parent container
-    }
 
-    container.innerHTML = ''; // Clear existing tasks
+    // Clear the parent container completely
+    parentContainer.innerHTML = ''; // Clear everything (tasks or messages)
 
-    tasks.forEach(task => {
+    // Recreate the .ag-courses_box container
+    container = document.createElement('div');
+    container.className = 'ag-courses_box';
+    parentContainer.appendChild(container); // Append it to the parent container
+
+    console.log('Tasks to display:', tasks); // Debugging line
+
+    tasks.forEach((task, index) => {
+        console.log(`Rendering task ${index + 1}:`, task); // Debugging line
+
         // Create the card container
         const taskCard = document.createElement('div');
         taskCard.className = 'ag-courses_item';
@@ -100,12 +106,14 @@ function displayTasks(tasks) {
         const taskDateBox = document.createElement('div');
         taskDateBox.className = 'ag-courses-item_date-box';
         taskDateBox.innerHTML = `
-            Határidő:
+            Deadline:
             <span class="ag-courses-item_date">${task.deadline}</span>
         `;
+
+        // Add click event to open the modal
         taskLink.addEventListener('click', function (event) {
             event.preventDefault(); // Prevent default link behavior
-            openModal(task.t_name, task.description,task.label_color); // Pass task title and description to the modal
+            openModal(task.t_name, task.description); // Pass task title and description to the modal
         });
 
         // Append elements to build the card
@@ -117,6 +125,8 @@ function displayTasks(tasks) {
         // Append the card to the container
         container.appendChild(taskCard);
     });
+
+    console.log('All tasks rendered successfully.'); // Debugging line
 }
 function openModal(title, description,color) {
     const modal = document.getElementById('task-modal');
