@@ -205,8 +205,22 @@ window.addEventListener('click', function (event) {
             console.error('No element with id "tasks-container" found.');
             return;
         }
+        if (message==="Nincs feladatod erre a napra") {
+            container.innerHTML = '';
     
-        // Clear existing tasks or messages
+            // Create and display the message
+            const messageElement = document.createElement('p');
+            const addTask=document.createElement("a");
+            messageElement.textContent = message;
+            messageElement.style.color = 'white'; // Optional: Style the message
+            messageElement.style.textAlign = 'center'; // Optional: Center the message
+            addTask.innerHTML=``;
+       
+            container.appendChild(messageElement);
+            container.appendChild(addTask);
+        }
+        else{
+            // Clear existing tasks or messages
         container.innerHTML = '';
     
         // Create and display the message
@@ -215,6 +229,9 @@ window.addEventListener('click', function (event) {
         messageElement.style.color = 'white'; // Optional: Style the message
         messageElement.style.textAlign = 'center'; // Optional: Center the message
         container.appendChild(messageElement);
+        }
+    
+        
     }
 
 function loadLabels() {
