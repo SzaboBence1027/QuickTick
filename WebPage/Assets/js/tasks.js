@@ -113,7 +113,7 @@ function displayTasks(tasks) {
         // Add click event to open the modal
         taskLink.addEventListener('click', function (event) {
             event.preventDefault(); // Prevent default link behavior
-            openModal(task.t_name, task.description); // Pass task title and description to the modal
+            openModal(task.t_name, task.description,task.label_color); // Pass task title and description to the modal
         });
 
         // Append elements to build the card
