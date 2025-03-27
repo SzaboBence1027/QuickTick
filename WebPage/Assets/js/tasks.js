@@ -205,22 +205,8 @@ window.addEventListener('click', function (event) {
             console.error('No element with id "tasks-container" found.');
             return;
         }
-        if (message==="Nincs feladatod erre a napra") {
-            container.innerHTML = '';
     
-            // Create and display the message
-            const messageElement = document.createElement('p');
-            const addTask=document.createElement("a");
-            messageElement.textContent = message;
-            messageElement.style.color = 'white'; // Optional: Style the message
-            messageElement.style.textAlign = 'center'; // Optional: Center the message
-            addTask.innerHTML=``;
-            //createCalendar();
-            container.appendChild(messageElement);
-            container.appendChild(addTask);
-        }
-        else{
-            // Clear existing tasks or messages
+        // Clear existing tasks or messages
         container.innerHTML = '';
     
         // Create and display the message
@@ -229,9 +215,11 @@ window.addEventListener('click', function (event) {
         messageElement.style.color = 'white'; // Optional: Style the message
         messageElement.style.textAlign = 'center'; // Optional: Center the message
         container.appendChild(messageElement);
-        }
     
-        
+        // If the message is "Nincs feladatod mára", create the calendar
+        if (message === 'Nincs feladatod erre a napra') {
+            createCalendar();
+        }
     }
 
 function loadLabels() {
@@ -302,27 +290,90 @@ function deleteTask(taskId) {
         console.error('Error:', error);
         alert('An error occurred while deleting the task.');
     });
-}/*
+}
 
-function createCalendar(){
-        const container = document.getElementById('tasks-container');
-        const cal_modal_container=  document.createElement('div');
-        cal_modal_container.className="cal-modal-container";
-        const cal_modal=document.createElement('div');
-        cal_modal.className="cal-modal";
-        const calendar=document.createElement('div');
-        calendar.id="calendar";
-        const placeholder=document.createElement('div');
-        placeholder.className="placeholder";
+function createCalendar() {
+    const container = document.getElementById('tasks-container');
+    if (!container) {
+        console.error('No element with id "tasks-container" found.');
+        return;
+    }
 
+    // Clear the container before adding the calendar
+    container.innerHTML = '';
 
+    // Create calendar modal container
+    const calModalContainer = document.createElement('div');
+    calModalContainer.className = 'cal-modal-container';
 
+    // Create calendar modal
+    const calModal = document.createElement('div');
+    calModal.className = 'cal-modal';
 
-        container.head.appendChild(cal_modal_container);
-        container.head.appendChild(cal_modal);
-        container.head.appendChild(calendar);
-        container.head.appendChild(placeholder);
-        console.log("Calendar created")
+    // Create calendar placeholder
+    const calendar = document.createElement('div');
+    calendar.id = 'calendar';
+    calendar.className = 'placeholder';
+
+    // Create a container for calendar events
+    const calendarEvents = document.createElement('div');
+    calendarEvents.className = 'calendar-events';
+    calendarEvents.textContent = 'Select a date to see events';
+
+    // Append elements to the modal
+    calModal.appendChild(calendar);
+    calModal.appendChild(calendarEvents);
+    calModalContainer.appendChild(calModal);
+    container.appendChild(calModalContainer);
+
+    // Fetch event data from the backend
+    fetch('../Assets/php/all_tasks.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const eventDates = data.events; // Use the events from the backend
+                console.log('Fetched event dates:', eventDates);
+
+                // Initialize Flatpickr with the fetched event dates
+                initializeFlatpickr(calendar, eventDates, calendarEvents);
+            } else {
+                console.error('Failed to fetch events:', data.message);
+                calendarEvents.textContent = 'Failed to load events';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching events:', error);
+            calendarEvents.textContent = 'Error loading events';
+        });
+}
+function initializeFlatpickr(calendar, eventDates, calendarEvents) {
+    const flatpickrInstance = flatpickr(calendar, {
+        inline: true,
+        minDate: 'today',
+        disableMobile: true,
+        onChange: function (selectedDates, dateStr, instance) {
+            if (selectedDates.length) {
+                // Call the fetchTasks function with the selected date
+                console.log(`Fetching tasks for date: ${dateStr}`); // Debugging log
+                fetchTasks(dateStr); // Update the page with tasks for the selected date
+            }
+        },
+        onDayCreate: function (dObj, dStr, fp, dayElem) {
+            // Format the date of the current day element
+            const date = dayElem.dateObj.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+
+            // Check if the date has events
+            if (eventDates[date]) {
+                dayElem.classList.add('has-event'); // Add a custom class for styling
+            }
+        },
+        locale: {
+            weekdays: {
+                shorthand: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+                longhand: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            },
+        },
+    });
 }
 //calendar creation test
 /*

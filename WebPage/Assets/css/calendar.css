@@ -10,7 +10,7 @@
   }
   
   .cal-modal-container {
-    background: rgba(0, 0, 0, 0.4);
+   
     display: flex;
     align-items: center;
     justify-content: center;
@@ -155,3 +155,37 @@
     font-weight: 800;
     letter-spacing: -0.8px;
   }
+  .calendar-events {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+.calendar-events .event {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-events .event .date {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.calendar-events .event .location {
+    font-style: italic;
+    color: #666;
+}
+.flatpickr-day.has-event {
+  background-color: #3ecd5e; /* Green background */
+  color: white; /* White text */
+  border-radius: 50%; /* Make it circular */
+  font-weight: bold;
+}
+
+.flatpickr-day.has-event:hover {
+  background-color: #2fa94b; /* Darker green on hover */
+  color: white;
+}
