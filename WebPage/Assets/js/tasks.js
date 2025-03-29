@@ -328,23 +328,24 @@ function createCalendar() {
 
     // Fetch event data from the backend
     fetch('../Assets/php/all_tasks.php')
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const eventDates = data.events; // Use the events from the backend
-                console.log('Fetched event dates:', eventDates);
-
-                // Initialize Flatpickr with the fetched event dates
-                initializeFlatpickr(calendar, eventDates, calendarEvents);
-            } else {
-                console.error('Failed to fetch events:', data.message);
-                calendarEvents.textContent = 'Failed to load events';
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            const eventDates = {};
+            for (const [date, events] of Object.entries(data.events)) {
+                // Normalize the date to YYYY-MM-DD
+                const normalizedDate = flatpickr.formatDate(new Date(date), 'Y-m-d');
+                eventDates[normalizedDate] = events;
             }
-        })
-        .catch(error => {
-            console.error('Error fetching events:', error);
-            calendarEvents.textContent = 'Error loading events';
-        });
+            console.log('Normalized event dates:', eventDates); // Debugging log
+            initializeFlatpickr(calendar, eventDates, calendarEvents);
+        } else {
+            console.error('Failed to fetch events:', data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching events:', error);
+    });
 }
 function initializeFlatpickr(calendar, eventDates, calendarEvents) {
     const flatpickrInstance = flatpickr(calendar, {
@@ -353,17 +354,21 @@ function initializeFlatpickr(calendar, eventDates, calendarEvents) {
         disableMobile: true,
         onChange: function (selectedDates, dateStr, instance) {
             if (selectedDates.length) {
-                // Call the fetchTasks function with the selected date
-                console.log(`Fetching tasks for date: ${dateStr}`); // Debugging log
-                fetchTasks(dateStr); // Update the page with tasks for the selected date
+                // Format the date as YYYY-MM-DD to avoid time zone issues
+                const formattedDate = flatpickr.formatDate(selectedDates[0], 'Y-m-d');
+                console.log('Formatted date for fetchTasks:', formattedDate); // Debugging log
+                fetchTasks(formattedDate); // Update the page with tasks for the selected date
             }
         },
         onDayCreate: function (dObj, dStr, fp, dayElem) {
-            // Format the date of the current day element
-            const date = dayElem.dateObj.toISOString().split('T')[0]; // Format as YYYY-MM-DD
-
+            // Format the date of the current day element as YYYY-MM-DD
+            const date = flatpickr.formatDate(dayElem.dateObj, 'Y-m-d');
+        
+            console.log(`Checking calendar date: ${date}`); // Debugging log
+        
             // Check if the date has events
             if (eventDates[date]) {
+                console.log(`Date ${date} has events:`, eventDates[date]); // Debugging log
                 dayElem.classList.add('has-event'); // Add a custom class for styling
             }
         },
@@ -375,88 +380,3 @@ function initializeFlatpickr(calendar, eventDates, calendarEvents) {
         },
     });
 }
-//calendar creation test
-/*
-var eventDates = {}
-let day1 = formatDate(new Date(new Date().setMonth(new Date().getMonth() + 1)))
-eventDates[day1] = [
-  'Event 1, Location',
-  'Event 2, Location 2'
-]
-let day2 = formatDate(new Date(new Date().setDate(new Date().getDate() + 40)))
-eventDates[day2] = [
-  'Event 2, Location 3',
-]
-
-// set maxDates
-var maxDate = {
-  1: new Date(new Date().setMonth(new Date().getMonth() + 11)),
-  2: new Date(new Date().setMonth(new Date().getMonth() + 10)),
-  3: new Date(new Date().setMonth(new Date().getMonth() + 9))
-}
-
-var flatpickr = $('#calendar .placeholder').flatpickr({
-  inline: true,
-  minDate: 'today',
-  maxDate: maxDate[3]
-,
-  showMonths: 1,
-  enable: Object.keys(eventDates),
-  disableMobile: "true",
-  onChange: function(date, str, inst) {
-    var contents = '';
-    if(date.length) {
-        for(i=0; i < eventDates[str].length; i++) {
-        contents += '<div class="event"><div class="date">' + flatpickr.formatDate(date[0], 'l J F') + '</div><div class="location">' + eventDates[str][i] + '</div></div>';
-      }
-    }
-    $('#calendar .calendar-events').html(contents)
-  },
-  locale: {
-    weekdays: {
-      shorthand: ["S", "M", "T", "W", "T", "F", "S"],
-      longhand: [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-      ]
-    }
-  }
-})
-
-eventCaledarResize($(window));
-$(window).on('resize', function() {
-  eventCaledarResize($(this))
-})
-
-function eventCaledarResize($el) {
-  var width = $el.width()
-  if(flatpickr.selectedDates.length) {
-    flatpickr.clear()
-  }
-  if(width >= 992 && flatpickr.config.showMonths !== 3) {
-    flatpickr.set('showMonths', 3)
-    flatpickr.set('maxDate', maxDate[3])
-  }
-  if(width < 992 && width >= 768 && flatpickr.config.showMonths !== 2) {
-    flatpickr.set('showMonths', 2)
-    flatpickr.set('maxDate', maxDate[2])
-  }
-  if(width < 768 && flatpickr.config.showMonths !== 1) {
-    flatpickr.set('showMonths', 1)
-    flatpickr.set('maxDate', maxDate[1])
-    $('.flatpickr-calendar').css('width', '')
-  }
-}
-
-function formatDate(date) {
-    let d = date.getDate();
-    let m = date.getMonth() + 1; //Month from 0 to 11
-    let y = date.getFullYear();
-    return '' + y + '-' + (m<=9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
-}
-*/
