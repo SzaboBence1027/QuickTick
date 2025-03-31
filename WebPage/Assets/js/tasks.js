@@ -201,6 +201,7 @@ window.addEventListener('click', function (event) {
 
     function displayMessage(message) {
         const container = document.getElementById('tasks-container');
+        const nap_container=document.getElementById('form-group');
         if (!container) {
             console.error('No element with id "tasks-container" found.');
             return;
@@ -215,8 +216,13 @@ window.addEventListener('click', function (event) {
         messageElement.style.color = 'white'; // Optional: Style the message
         messageElement.style.textAlign = 'center'; // Optional: Center the message
         container.appendChild(messageElement);
-    
-        // If the message is "Nincs feladatod mára", create the calendar
+        /*const nap= document.createElement('label');
+        nap.textContent="Nap";
+        const DateInput=document.createElement('input');
+        DateInput.id="deadline";
+        DateInput.name="deadline";
+        DateInput.type="date";*/
+        // If the message is "Nincs feladatod erre a napra", create the calendar
         if (message === 'Nincs feladatod erre a napra') {
             createCalendar();
         }
@@ -358,6 +364,10 @@ function initializeFlatpickr(calendar, eventDates, calendarEvents) {
                 const formattedDate = flatpickr.formatDate(selectedDates[0], 'Y-m-d');
                 console.log('Formatted date for fetchTasks:', formattedDate); // Debugging log
                 fetchTasks(formattedDate); // Update the page with tasks for the selected date
+                const dateInput = document.getElementById('deadline');
+                if (dateInput) {
+                    dateInput.value = formattedDate;
+                }
             }
         },
         onDayCreate: function (dObj, dStr, fp, dayElem) {
