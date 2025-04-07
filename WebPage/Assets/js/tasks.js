@@ -86,6 +86,7 @@ function displayTasks(tasks) {
         // Create the card container
         const taskCard = document.createElement('div');
         taskCard.className = 'ag-courses_item';
+        taskCard.id = `task-${task.id}`;
 
         // Create the link wrapper
         const taskLink = document.createElement('a');
@@ -113,7 +114,7 @@ function displayTasks(tasks) {
         // Add click event to open the modal
         taskLink.addEventListener('click', function (event) {
             event.preventDefault(); // Prevent default link behavior
-            openModal(task.t_name, task.description,task.label_color); // Pass task title and description to the modal
+            openModal(task.t_name, task.description,task.label_color,task.id); // Pass task title and description to the modal
         });
 
         // Append elements to build the card
@@ -128,13 +129,27 @@ function displayTasks(tasks) {
 
     console.log('All tasks rendered successfully.'); // Debugging line
 }
-function openModal(title, description,color) {
+function openModal(title, description,color,task_id) {
     const modal = document.getElementById('task-modal');
     const modalTitle = document.getElementById('modal-title');
     const modalDescription = document.getElementById('modal-description');
+    const modalbuttons=document.getElementById('modal-buttons');
 
     modalTitle.textContent = title; // Set the task title
-    modalDescription.textContent = `Leírás: ${description}` ; // Set the task description
+    modalDescription.textContent = `Leírás: ${description} ` ; // Set the task description
+    modalbuttons.innerHTML=`<a href="edit_task.html?task_id=${task_id}"><svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M21.1213 2.70705C19.9497 1.53548 18.0503 1.53547 16.8787 2.70705L15.1989 4.38685L7.29289 12.2928C7.16473 12.421 7.07382 12.5816 7.02986 12.7574L6.02986 16.7574C5.94466 17.0982 6.04451 17.4587 6.29289 17.707C6.54127 17.9554 6.90176 18.0553 7.24254 17.9701L11.2425 16.9701C11.4184 16.9261 11.5789 16.8352 11.7071 16.707L19.5556 8.85857L21.2929 7.12126C22.4645 5.94969 22.4645 4.05019 21.2929 2.87862L21.1213 2.70705ZM18.2929 4.12126C18.6834 3.73074 19.3166 3.73074 19.7071 4.12126L19.8787 4.29283C20.2692 4.68336 20.2692 5.31653 19.8787 5.70705L18.8622 6.72357L17.3068 5.10738L18.2929 4.12126ZM15.8923 6.52185L17.4477 8.13804L10.4888 15.097L8.37437 15.6256L8.90296 13.5112L15.8923 6.52185ZM4 7.99994C4 7.44766 4.44772 6.99994 5 6.99994H10C10.5523 6.99994 11 6.55223 11 5.99994C11 5.44766 10.5523 4.99994 10 4.99994H5C3.34315 4.99994 2 6.34309 2 7.99994V18.9999C2 20.6568 3.34315 21.9999 5 21.9999H16C17.6569 21.9999 19 20.6568 19 18.9999V13.9999C19 13.4477 18.5523 12.9999 18 12.9999C17.4477 12.9999 17 13.4477 17 13.9999V18.9999C17 19.5522 16.5523 19.9999 16 19.9999H5C4.44772 19.9999 4 19.5522 4 18.9999V7.99994Z" fill="#000000"/>
+    </svg></a> <!-- Edit link with task ID -->
+    
+    <button onclick="deleteTask(${task_id})"> <svg fill="#000000" width="30px" height="30px" viewBox="-6.7 0 122.88 122.88" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  enable-background="new 0 0 109.484 122.88" xml:space="preserve">
+
+    <g>
+    
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.347,9.633h38.297V3.76c0-2.068,1.689-3.76,3.76-3.76h21.144 c2.07,0,3.76,1.691,3.76,3.76v5.874h37.83c1.293,0,2.347,1.057,2.347,2.349v11.514H0V11.982C0,10.69,1.055,9.633,2.347,9.633 L2.347,9.633z M8.69,29.605h92.921c1.937,0,3.696,1.599,3.521,3.524l-7.864,86.229c-0.174,1.926-1.59,3.521-3.523,3.521h-77.3 c-1.934,0-3.352-1.592-3.524-3.521L5.166,33.129C4.994,31.197,6.751,29.605,8.69,29.605L8.69,29.605z M69.077,42.998h9.866v65.314 h-9.866V42.998L69.077,42.998z M30.072,42.998h9.867v65.314h-9.867V42.998L30.072,42.998z M49.572,42.998h9.869v65.314h-9.869 V42.998L49.572,42.998z"/>
+    
+    </g>
+    
+    </svg></button>`;
 
     modal.style.display = 'block'; // Show the modal
    const modalContent = document.querySelector('.modal-content');
@@ -285,6 +300,9 @@ function deleteTask(taskId) {
             const taskElement = document.getElementById(`task-${taskId}`);
             if (taskElement) {
                 taskElement.remove();
+                const modal = document.getElementById('task-modal');
+                modal.style.display = 'none';
+                createCalendar();
             } else {
                 console.error(`Task element with ID task-${taskId} not found.`);
             }
@@ -324,7 +342,7 @@ function createCalendar() {
     // Create a container for calendar events
     const calendarEvents = document.createElement('div');
     calendarEvents.className = 'calendar-events';
-    calendarEvents.textContent = 'Select a date to see events';
+    calendarEvents.textContent = 'Válaszon egy dátumot eseményel';
 
     // Append elements to the modal
     calModal.appendChild(calendar);
@@ -384,8 +402,8 @@ function initializeFlatpickr(calendar, eventDates, calendarEvents) {
         },
         locale: {
             weekdays: {
-                shorthand: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-                longhand: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                shorthand: ['V', 'H', 'K', 'SZE', 'CS', 'P', 'SZO'],
+                longhand: ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat'],
             },
         },
     });
