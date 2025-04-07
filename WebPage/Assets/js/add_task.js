@@ -9,6 +9,7 @@ document.getElementById('add-task-form').addEventListener('submit', function(eve
     if (!formData.has('label_id') || formData.get('label_id') === '') {
         formData.set('label_id', '');
     }
+    formData.append('progresson',0);
 
     fetch('../Assets/php/add_task.php', {
         method: 'POST',
