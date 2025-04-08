@@ -16,7 +16,7 @@ try {
     $query = 'SELECT task.deadline, task.t_name, label.l_name as label_name, label.color as label_color
               FROM task
               LEFT JOIN label ON task.label_id = label.id
-              WHERE task.user_id = :user_id AND task.deadline >= :current_date
+              WHERE task.user_id = :user_id AND task.deadline >= :current_date AND task.progresson = 0
               ORDER BY task.deadline ASC';
 
     $stmt = $pdo->prepare($query);
