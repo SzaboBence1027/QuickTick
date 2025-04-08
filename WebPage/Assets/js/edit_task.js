@@ -50,7 +50,6 @@ function loadTaskDetails(taskId) {
                 document.getElementById('description').value = data.task.description;
                 document.getElementById('priority').value = data.task.priority;
                 document.getElementById('priority-value').textContent = data.task.priority;
-                document.getElementById('progresson').value = data.task.progresson;
                 document.getElementById('deadline').value = data.task.deadline;
 
                 // Set the selected option based on the label ID

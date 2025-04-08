@@ -12,7 +12,6 @@ $t_name = $_POST['t_name'] ?? null;
 $description = $_POST['description'] ?? null;
 $label_id = isset($_POST['label_id']) && $_POST['label_id'] !== '' ? intval($_POST['label_id']) : 1; // Default to "No Label" ID
 $priority = $_POST['priority'] ?? null;
-$progresson = $_POST['progresson'] ?? null;
 $deadline = $_POST['deadline'] ?? null;
 
 
@@ -20,13 +19,12 @@ $deadline = $_POST['deadline'] ?? null;
 
 
 try {
-    $stmt = $pdo->prepare('UPDATE task SET  t_name = :t_name, description = :description, label_id = :label_id, priority = :priority, progresson = :progresson, deadline = :deadline WHERE id = :task_id');
+    $stmt = $pdo->prepare('UPDATE task SET  t_name = :t_name, description = :description, label_id = :label_id, priority = :priority, deadline = :deadline WHERE id = :task_id');
     $stmt->execute([
         't_name' => $t_name,
         'description' => $description,
         'label_id' => $label_id, // Default to "No Label" ID if no label is provided
         'priority' => $priority,
-        'progresson' => $progresson,
         'deadline' => $deadline,
         'task_id'=> $task_id
     ]);

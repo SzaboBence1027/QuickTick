@@ -73,6 +73,13 @@
     <script src="../Assets/js/tasks.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="../Assets/js/logout.js"></script>
+    <script>
+        // Set the minimum date for the deadline input to today
+        document.addEventListener('DOMContentLoaded', function () {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('deadline').setAttribute('min', today);
+        });
+    </script>
 </body>
 
 </html>
