@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Már 11. 10:32
+-- Létrehozás ideje: 2025. Ápr 10. 13:04
 -- Kiszolgáló verziója: 10.4.28-MariaDB
 -- PHP verzió: 8.2.4
 
@@ -20,29 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Adatbázis: `todolist`
 --
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `groups`
---
-
-CREATE TABLE `groups` (
-  `id` int(11) NOT NULL,
-  `g_name` varchar(50) DEFAULT NULL,
-  `leader_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Tábla szerkezet ehhez a táblához `group_link`
---
-
-CREATE TABLE `group_link` (
-  `user_id` int(11) NOT NULL,
-  `group_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -96,8 +73,6 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`id`, `t_name`, `description`, `user_id`, `label_id`, `priority`, `progresson`, `deadline`) VALUES
-(25, 'Anyas', 'gfkgidjghjdhgjhfdij', 8, 1, 1, 1, '2025-03-05'),
-(26, 'teszt', '2321313', 8, 1, 7, 1, '2025-03-11'),
 (27, 'dsfsfsffsf', 'adsadadsad', 8, 2, 7, 1, '2025-03-11'),
 (28, 'Szemelyes', '012', 8, 3, 5, 1, '2025-03-11'),
 (29, 'Egezseg', '12', 8, 4, 2, 12, '2025-03-11'),
@@ -110,7 +85,19 @@ INSERT INTO `task` (`id`, `t_name`, `description`, `user_id`, `label_id`, `prior
 (36, 'Vásárlás', 'sd', 8, 12, 3, 1, '2025-03-11'),
 (37, 'Javitas', '2323', 8, 13, 3, 1212, '2025-03-11'),
 (38, 'Lopás', 'Elkell lopni', 8, 2, 5, 4, '2025-03-10'),
-(39, 'fdgdg', 'dfgd', 8, 1, 5, 1, '2025-03-11');
+(39, 'fdgdg', 'dfgd', 8, 1, 5, 1, '2025-03-11'),
+(40, 'Proba', 'Proba leiras', 8, 6, 3, 1, '2025-03-12'),
+(41, 'teszr', 'Teszt leiras', 9, 4, 3, 1, '2025-03-12'),
+(42, 'teszr', 'Teszt leiras', 9, 5, 10, 1, '2025-03-13'),
+(43, 'teszr', 'Teszt leiras', 9, 5, 10, 1, '2025-03-12'),
+(44, 'Prob', 'dfsdfsfd', 8, 1, 6, 1, '2025-03-12'),
+(45, 'Proba', 'asdadasdsaasd', 8, 4, 3, 1, '2025-03-13'),
+(46, 'Probaa', 'dfgdfgfdgdfg', 8, 3, 7, 1, '2025-03-13'),
+(47, 'edzés', 'futás', 11, 4, 10, 0, '2025-03-14'),
+(48, 'fdssfsf', 'sdsfds', 8, 5, 3, 1, '2025-03-20'),
+(49, 'teszt', 'Tezdsgsdgsdgdsgsgsggdsdgsdgsdgsdgsdgdsgdsdgsgsgsg', 8, 3, 5, 1, '2025-04-10'),
+(53, 'Proba', 'Teszt leiras', 8, 1, 5, 0, '2025-04-10'),
+(54, 'Probas', 'Teszt leiras', 8, 1, 5, 0, '2025-04-10');
 
 -- --------------------------------------------------------
 
@@ -131,26 +118,14 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`) VALUES
 (5, 'Teszt', 'teszt@gmail.com', '$2y$10$VFg/3i2csDC6W1lQjPsGmexPfw6qI5DtJFwfY.lnNt1KsHBJ28Kna'),
-(8, 't', 't@gmail.com', '$2y$10$.47uQuIDnux.XBmTefojoefQkeuAWXyk.uwQqs409krvsrQH.T.1S');
+(8, 't', 't@gmail.com', '$2y$10$.47uQuIDnux.XBmTefojoefQkeuAWXyk.uwQqs409krvsrQH.T.1S'),
+(9, 'Teszt2', 'teszt2@gmail.com', '$2y$10$59qzVQOlUrwOnIVcdfpngOTUu779neG39fjUXDdb6zwjmDZ8UsM/K'),
+(10, 'Teszr2', 'teszt3@gmail.com', '$2y$10$PC2./o.Ljh7RdQwX4PAx8eLjzC4emwukd81YO1eDYdmtbgTJ9UCaS'),
+(11, 'asdasd', 'asdasd@gmail.com', '$2y$10$vV7hwwvSmPvj4/vgMY0Ndu57b8XwJY6NxXR.E0JxbFa3O6LEYFFcO');
 
 --
 -- Indexek a kiírt táblákhoz
 --
-
---
--- A tábla indexei `groups`
---
-ALTER TABLE `groups`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `felhasznalo_id` (`leader_id`);
-
---
--- A tábla indexei `group_link`
---
-ALTER TABLE `group_link`
-  ADD PRIMARY KEY (`user_id`,`group_id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `group_id` (`group_id`);
 
 --
 -- A tábla indexei `label`
@@ -177,12 +152,6 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT a táblához `groups`
---
-ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT a táblához `label`
 --
 ALTER TABLE `label`
@@ -192,30 +161,17 @@ ALTER TABLE `label`
 -- AUTO_INCREMENT a táblához `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT a táblához `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Megkötések a kiírt táblákhoz
 --
-
---
--- Megkötések a táblához `groups`
---
-ALTER TABLE `groups`
-  ADD CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`leader_id`) REFERENCES `users` (`id`);
-
---
--- Megkötések a táblához `group_link`
---
-ALTER TABLE `group_link`
-  ADD CONSTRAINT `group_link_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `group_link_ibfk_2` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`);
 
 --
 -- Megkötések a táblához `task`

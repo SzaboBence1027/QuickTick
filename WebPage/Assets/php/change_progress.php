@@ -6,19 +6,19 @@ header('Content-Type: application/json');
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Handle POST request to update task progression
-        $input = json_decode(file_get_contents('php://input'), true); // Parse JSON body
-        $task_id = $input['task_id'] ?? null;
-        $progresson = $input['progresson'] ?? null;
+       
+        $task_id = $_POST['task_id'] ?? null;
+        
 
-        if (!$task_id || $progresson === null) {
-            echo json_encode(['success' => false, 'message' => 'Invalid input']);
+        if (!$task_id ) {
+            echo json_encode(['success' => false, 'message' => 'Invalid input',"task_id"=>$task_id]);
             exit;
         }
 
         // Update the task progression
-        $updateQuery = 'UPDATE task SET progresson = :progresson WHERE id = :task_id';
+        $updateQuery = 'UPDATE task SET progresson = 1 WHERE id = :task_id';
         $stmt = $pdo->prepare($updateQuery);
-        $stmt->execute(['progresson' => $progresson, 'task_id' => $task_id]);
+        $stmt->execute([ 'task_id' => $task_id]);
 
         echo json_encode(['success' => true, 'message' => 'Task progression updated successfully']);
     } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
