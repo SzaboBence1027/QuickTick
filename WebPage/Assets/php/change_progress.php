@@ -7,8 +7,9 @@ try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Handle POST request to update task progression
        
-        $task_id = $_POST['task_id'] ?? null;
-        
+        $input = json_decode(file_get_contents('php://input'), true); // Parse JSON body
+        $task_id = $input['task_id'] ?? null;
+        error_log('Received task_id: ' . $task_id); // Debugging line
 
         if (!$task_id ) {
             echo json_encode(['success' => false, 'message' => 'Invalid input',"task_id"=>$task_id]);

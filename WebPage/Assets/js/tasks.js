@@ -150,16 +150,25 @@ function openModal(title, description,color,task_id) {
     </g>
     
     </svg></button>
-    <!--Kesz feladat gomb -->
-    <button onclick="MarkTaskDone(${task_id})"> <svg fill="#000000" width="30px" height="30px" viewBox="-6.7 0 122.88 122.88" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  enable-background="new 0 0 109.484 122.88" xml:space="preserve">
+    <button onclick="MarkTaskDone(${task_id})">
+       <svg width="30px" height="30px" viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>done [#1478]</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
 
-    <g>
-    
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.347,9.633h38.297V3.76c0-2.068,1.689-3.76,3.76-3.76h21.144 c2.07,0,3.76,1.691,3.76,3.76v5.874h37.83c1.293,0,2.347,1.057,2.347,2.349v11.514H0V11.982C0,10.69,1.055,9.633,2.347,9.633 L2.347,9.633z M8.69,29.605h92.921c1.937,0,3.696,1.599,3.521,3.524l-7.864,86.229c-0.174,1.926-1.59,3.521-3.523,3.521h-77.3 c-1.934,0-3.352-1.592-3.524-3.521L5.166,33.129C4.994,31.197,6.751,29.605,8.69,29.605L8.69,29.605z M69.077,42.998h9.866v65.314 h-9.866V42.998L69.077,42.998z M30.072,42.998h9.867v65.314h-9.867V42.998L30.072,42.998z M49.572,42.998h9.869v65.314h-9.869 V42.998L49.572,42.998z"/>
-    
+</defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dribbble-Light-Preview" transform="translate(-139.000000, -400.000000)" fill="#000000">
+            <g id="icons" transform="translate(56.000000, 160.000000)">
+                <path d="M97.23065,248.168 L92.7776,252.408 C92.366,252.8 91.69925,252.8 91.28765,252.408 L89.0627,250.289 C88.65215,249.899 88.65215,249.266 89.0627,248.875 C89.4722,248.485 90.1379,248.485 90.5474,248.875 L91.2908,249.583 C91.7003,249.973 92.36495,249.973 92.7755,249.583 L95.74595,246.754 C96.15545,246.363 96.8201,246.363 97.23065,246.754 C97.6412,247.144 97.6412,247.777 97.23065,248.168 M101.9,240 L85.1,240 C83.93975,240 83,240.895 83,242 L83,258 C83,259.104 83.93975,260 85.1,260 L101.9,260 C103.06025,260 104,259.104 104,258 L104,242 C104,240.895 103.06025,240 101.9,240" id="done-[#1478]">
+
+</path>
+            </g>
+        </g>
     </g>
-    
-    </svg></button>
+</svg>
+    </button>
     `;
 
     modal.style.display = 'block'; // Show the modal
@@ -372,39 +381,44 @@ function initializeFlatpickr(calendar, eventDates, calendarEvents) {
     });
 }
 
-
-function MarkTaskDone(task_id){
+function MarkTaskDone(task_id) {
     if (!confirm('Biztos kész vagy a feladattal?')) {
         return;
     }
-    const data = { task_id: task_id };
-    
+
+    console.log('Marking task as done. Task ID:', task_id); // Debugging line
+
+    // Prepare the data to send in the body
+    const data = JSON.stringify({ task_id: task_id });
 
     fetch(`../Assets/php/change_progress.php`, {
         method: 'POST',
-        body: data
+        headers: {
+            'Content-Type': 'application/json', // Specify JSON content type
+        },
+        body: data, // Send the task_id in the body
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Response data:', data); // Debugging line
-        if (data.success) {
-            alert('Task deleted successfully.');
-            // Remove the task from the DOM
-            const taskElement = document.getElementById(`task-${task_id}`);
-            if (taskElement) {
-                taskElement.remove();
-                const modal = document.getElementById('task-modal');
-                modal.style.display = 'none';
-                createCalendar();
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response data:', data); // Debugging line
+            if (data.success) {
+                alert('Task marked as completed successfully.');
+                // Remove the task from the DOM
+                const taskElement = document.getElementById(`task-${task_id}`);
+                if (taskElement) {
+                    taskElement.remove();
+                    const modal = document.getElementById('task-modal');
+                    modal.style.display = 'none';
+                    createCalendar(); // Refresh the calendar
+                } else {
+                    console.error(`Task element with ID task-${task_id} not found.`);
+                }
             } else {
-                console.error(`Task element with ID task-${task_id} not found.`);
+                alert('Failed to mark task as completed: ' + data.message);
             }
-        } else {
-            alert('Failed to delete task: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while deleting the task.');
-    });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while marking the task as completed.');
+        });
 }
