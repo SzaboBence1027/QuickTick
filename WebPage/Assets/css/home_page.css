@@ -403,5 +403,10 @@ user-select: none;
 }
 
 
+.svg_button{
+  text-decoration: none;
+  background-color: transparent;
+}
+
 
 
