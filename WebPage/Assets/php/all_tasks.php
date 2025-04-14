@@ -10,14 +10,24 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = intval($_SESSION['user_id']);
 $current_date = date('Y-m-d'); // Get the current date
+$type = $_GET['type'] ?? 'future'; // Default to 'future' if no type is provided
 
 try {
-    // Query to fetch events from the current date onwards
+    // Base query
     $query = 'SELECT task.deadline, task.t_name, label.l_name as label_name, label.color as label_color
               FROM task
               LEFT JOIN label ON task.label_id = label.id
-              WHERE task.user_id = :user_id AND task.deadline >= :current_date AND task.progresson = 0
-              ORDER BY task.deadline ASC';
+              WHERE task.user_id = :user_id';
+
+    // Adjust the query based on the type
+    if ($type === 'future') {
+        $query .= ' AND task.deadline >= :current_date AND task.progresson = 0 ORDER BY task.deadline ASC';
+    } elseif ($type === 'past') {
+        $query .= ' AND task.deadline < :current_date ORDER BY task.deadline DESC';
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Invalid type parameter']);
+        exit;
+    }
 
     $stmt = $pdo->prepare($query);
     $stmt->execute(['user_id' => $user_id, 'current_date' => $current_date]);
