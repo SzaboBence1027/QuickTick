@@ -323,7 +323,7 @@ function createCalendar() {
     container.appendChild(calModalContainer);
 
     // Fetch event data from the backend
-    fetch('../Assets/php/all_tasks.php')
+    fetch('../Assets/php/all_tasks.php?type=future')
     .then(response => response.json())
     .then(data => {
         if (data.success) {
