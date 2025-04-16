@@ -9,7 +9,7 @@ function CheckForExistingTask($pdo, $user_id, $t_name, $deadline)
     return $stmt->fetch() ? true : false;
 }
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'User ID is required']);
+    echo json_encode(['success' => false, 'message' => 'Felhasználó azonosító szükséges']);
     exit;
 }
 
@@ -25,11 +25,11 @@ $deadline = $_POST['deadline'] ?? null;
 
 
 if (!$t_name || !$deadline) {
-    echo json_encode(['success' => false, 'message' => 'Task name and deadline are required']);
+    echo json_encode(['success' => false, 'message' => 'Feladat név és dátum szükséges']);
     exit;
 }
 if (CheckForExistingTask($pdo, $user_id, $t_name, $deadline)) {
-    echo json_encode(['success' => false, 'message' => 'Task already exists on this date']);
+    echo json_encode(['success' => false, 'message' => 'Ilyen nevű feladat már létezik ezen a napon']);
     exit;
 }
 try {
@@ -44,7 +44,7 @@ try {
         'deadline' => $deadline
     ]);
 
-    echo json_encode(['success' => true, 'message' => 'Task added successfully']);
+    echo json_encode(['success' => true, 'message' => 'Feladat sikeresen hozzáadva ']);
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'message' => 'Query failed: ' . $e->getMessage()]);
 }

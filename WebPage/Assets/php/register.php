@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $data['password'] ?? '';
 
     if (empty($username) || empty($email) || empty($password)) {
-        echo json_encode(['error' => 'All fields are required']);
+        echo json_encode(['error' => 'Minden mező kitöltése szükséges']);
         exit;
     }
 
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare('SELECT * FROM users WHERE email = :email');
     $stmt->execute(['email' => $email]);
     if ($stmt->rowCount() > 0) {
-        echo json_encode(['error' => 'Email already exists']);
+        echo json_encode(['error' => 'Email már használatban van']);
         exit;
     }
 
@@ -34,6 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'password' => $hashed_password
     ]);
 
-    echo json_encode(['message' => 'User registered successfully']);
+    echo json_encode(['message' => 'Felhasználó sikeresen regisztrált']);
 }
 ?>
