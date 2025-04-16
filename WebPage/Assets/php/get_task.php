@@ -5,7 +5,7 @@ header('Content-Type: application/json');
 $task_id = $_GET['task_id'] ?? null;
 
 if (!$task_id) {
-    echo json_encode(['success' => false, 'message' => 'Task ID is required']);
+    echo json_encode(['success' => false, 'message' => 'Feladat azononositó szükséges']);
     exit;
 }
 

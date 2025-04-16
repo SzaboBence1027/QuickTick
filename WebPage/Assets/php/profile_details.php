@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 echo json_encode(['success' => false, 'message' => 'User not found']);
             }
     } catch (PDOException $e) {
-        echo json_encode(['success' => false, 'message' => 'User ID is required']);
+        echo json_encode(['success' => false, 'message' => 'Query failed: ' . $e->getMessage()]);
     }
 }
 
