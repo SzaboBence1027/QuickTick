@@ -3,7 +3,7 @@
 $host="localhost";
 $user="root";
 $pass="";
-$db="todolist";
+$db="quicktick";
 $conn=new mysqli($host,$user,$pass,$db);
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
