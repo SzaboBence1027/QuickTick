@@ -4,7 +4,7 @@ session_start();
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(['success' => false, 'message' => 'User not authenticated']);
+    echo json_encode(['success' => false, 'message' => 'Felhasználó nincs bejelentkezve']);
     exit;
 }
 
@@ -25,7 +25,7 @@ try {
     } elseif ($type === 'past') {
         $query .= ' AND task.deadline < :current_date ORDER BY task.deadline DESC';
     } else {
-        echo json_encode(['success' => false, 'message' => 'Invalid type parameter']);
+        echo json_encode(['success' => false, 'message' => 'Nem megfelelő típus']);
         exit;
     }
 
@@ -41,7 +41,7 @@ try {
         $events[$date][] = $row['t_name'] . ', ' . $row['label_name'];
     }
 
-    echo json_encode(['success' => true, 'events' => $events]);
+    echo json_encode(['success' => true, 'események' => $events]);
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
 }

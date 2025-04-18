@@ -12,7 +12,7 @@ try {
         error_log('Received task_id: ' . $task_id); // Debugging line
 
         if (!$task_id ) {
-            echo json_encode(['success' => false, 'message' => 'Invalid input',"task_id"=>$task_id]);
+            echo json_encode(['success' => false, 'message' => 'Nem megfelelő feladat azonosito',"task_id"=>$task_id]);
             exit;
         }
 
@@ -21,13 +21,13 @@ try {
         $stmt = $pdo->prepare($updateQuery);
         $stmt->execute([ 'task_id' => $task_id]);
 
-        echo json_encode(['success' => true, 'message' => 'Task progression updated successfully']);
+        echo json_encode(['success' => true, 'message' => 'Fealdat sikeresen frissitve']);
     } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
         // Handle GET request for marking expired tasks and deleting old tasks
 
-        // Step 1: Mark tasks as expired (progresson = 3) if the deadline has passed and they are not completed
+        // Step 1: Mark tasks as expired (progresson = 2) if the deadline has passed and they are not completed
         $markExpiredQuery = 'UPDATE task 
-                             SET progresson = 3 
+                             SET progresson = 2 
                              WHERE deadline < CURDATE() AND progresson = 0';
         $pdo->exec($markExpiredQuery);
 
@@ -36,11 +36,11 @@ try {
                         WHERE deadline < DATE_SUB(CURDATE(), INTERVAL 30 DAY)';
         $pdo->exec($deleteQuery);
 
-        echo json_encode(['success' => true, 'message' => 'Tasks updated and old tasks deleted successfully']);
+        echo json_encode(['success' => true, 'message' => 'Feladatok sikeresen frissitve régi feladatok törölve']);
     } else {
         // Handle unsupported request methods
         http_response_code(405); // Method Not Allowed
-        echo json_encode(['success' => false, 'message' => 'Method not allowed']);
+        echo json_encode(['success' => false, 'message' => 'Methódus nem megengedett']);
     }
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
