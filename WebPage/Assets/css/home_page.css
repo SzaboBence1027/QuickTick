@@ -409,29 +409,48 @@ user-select: none;
 }
 
 
+
 .logout_form {
   display: flex; /* Use flexbox for layout */
   flex-direction: column; /* Stack items vertically */
   align-items: center; /* Center items horizontally */
-  gap: 10px; /* Add spacing between the form elements */
+  gap: 20px; /* Add spacing between the form elements */
+  width: 100%; /* Ensure the form takes up the full width of its container */
+  max-width: 300px; /* Optional: Set a maximum width for all elements */
+  margin: auto, auto; /* Center the form horizontally within its parent */
+  padding: 0; /* Remove any extra padding */
+  box-sizing: border-box; /* Include padding and borders in the width/height */
 }
 
-.profile_logout {
+.logout_form .form-group {
+  width: 100%; /* Make all form groups take up the full width */
+  max-width: 300px; /* Optional: Set a maximum width for consistency */
+  text-align: center; /* Center-align text inside the form group */
+  margin: 0; /* Remove any extra margin */
+}
+
+.logout_form .form-group label {
+  display: block; /* Ensure labels take up the full width */
+  width: 100%; /* Match the width of other elements */
+  color: white; /* Ensure text is visible on a dark background */
+}
+
+.logout_form .profile_logout {
   display: inline-flex; /* Ensures the <a> wraps tightly around the <svg> */
   align-items: center; /* Vertically centers the content */
   justify-content: center; /* Horizontally centers the content */
-  width: 50px; /* Matches the width of the <svg> */
+  width: 100%; /* Make the logout button take up the full width */
+  max-width: 300px; /* Optional: Set a maximum width for consistency */
   height: 50px; /* Matches the height of the <svg> */
   text-decoration: none; /* Removes underline from the link */
-  margin: 10px 0;
-  background: #573b8a;
-  margin: 0; /* Removes any default margin */
+  background-color: transparent; /* Ensures the background is transparent */
   padding: 0; /* Removes any default padding */
+  margin: 0; /* Removes any extra margin */
   box-sizing: border-box; /* Ensures padding and borders are included in the width/height */
 }
 
-.profile_logout svg {
+.logout_form .profile_logout svg {
   display: block; /* Ensures the <svg> takes up the full size of the <a> */
-  width: 100%; /* Makes the <svg> fill the width of the <a> */
-  height: 100%; /* Makes the <svg> fill the height of the <a> */
+  width: 50px; /* Matches the size of the SVG */
+  height: 50px; /* Matches the size of the SVG */
 }
