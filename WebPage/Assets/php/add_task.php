@@ -4,7 +4,7 @@ session_start();
 header('Content-Type: application/json');
 function CheckForExistingTask($pdo, $user_id, $t_name, $deadline)
 {
-    $stmt = $pdo->prepare('SELECT * FROM task WHERE user_id = :user_id AND t_name = :t_name AND deadline = :deadline');
+    $stmt = $pdo->prepare('SELECT * FROM task WHERE user_id = :user_id AND t_name = :t_name AND deadline = :deadline AND progresson = 0');
     $stmt->execute(['user_id' => $user_id, 't_name' => $t_name, 'deadline' => $deadline]);
     return $stmt->fetch() ? true : false;
 }

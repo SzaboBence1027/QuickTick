@@ -274,7 +274,13 @@ function deleteTask(taskId) {
                 taskElement.remove();
                 const modal = document.getElementById('task-modal');
                 modal.style.display = 'none';
-                createCalendar();
+                const remainingTasks = document.querySelectorAll('.ag-courses_item');
+                if (remainingTasks.length === 0) {
+                    console.log('No tasks remaining. Displaying calendar.');
+                    createCalendar(); // Refresh the calendar
+                } else {
+                    console.log(`Remaining tasks: ${remainingTasks.length}`);
+                }
             } else {
                 console.error(`Task element with ID task-${taskId} not found.`);
             }
@@ -410,7 +416,14 @@ function MarkTaskDone(task_id) {
                     taskElement.remove();
                     const modal = document.getElementById('task-modal');
                     modal.style.display = 'none';
-                    createCalendar(); // Refresh the calendar
+                    const remainingTasks = document.querySelectorAll('.ag-courses_item');
+                    if (remainingTasks.length === 0) {
+                        console.log('No tasks remaining. Displaying calendar.');
+                        createCalendar(); // Refresh the calendar
+                    } else {
+                        console.log(`Remaining tasks: ${remainingTasks.length}`);
+                    }
+                  
                 } else {
                     console.error(`Task element with ID task-${task_id} not found.`);
                 }
