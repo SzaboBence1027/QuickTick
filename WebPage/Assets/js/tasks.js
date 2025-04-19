@@ -326,7 +326,8 @@ function createCalendar() {
     fetch('../Assets/php/all_tasks.php?type=future')
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
+        console.log('API Response:', data); // Debugging line
+        if (data.success && data.events) {
             const eventDates = {};
             for (const [date, events] of Object.entries(data.events)) {
                 // Normalize the date to YYYY-MM-DD
@@ -336,7 +337,7 @@ function createCalendar() {
             console.log('Normalized event dates:', eventDates); // Debugging log
             initializeFlatpickr(calendar, eventDates, calendarEvents);
         } else {
-            console.error('Failed to fetch events:', data.message);
+            console.error('Failed to fetch events:', data.message || 'No events found.');
         }
     })
     .catch(error => {

@@ -41,7 +41,7 @@ try {
         $events[$date][] = $row['t_name'] . ', ' . $row['label_name'];
     }
 
-    echo json_encode(['success' => true, 'események' => $events]);
+    echo json_encode(['success' => true, 'events' => $events]);
 } catch (PDOException $e) {
     echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
 }
