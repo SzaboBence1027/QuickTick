@@ -14,7 +14,12 @@ $type = $_GET['type'] ?? 'future'; // Default to 'future' if no type is provided
 
 try {
     // Base query
-    $query = 'SELECT task.deadline, task.t_name, label.l_name as label_name, label.color as label_color
+    $query = 'SELECT 
+                task.deadline, 
+                task.t_name, 
+                task.description, 
+                label.l_name as label_name, 
+                label.color as label_color
               FROM task
               LEFT JOIN label ON task.label_id = label.id
               WHERE task.user_id = :user_id';
@@ -38,7 +43,12 @@ try {
         if (!isset($events[$date])) {
             $events[$date] = [];
         }
-        $events[$date][] = $row['t_name'] . ', ' . $row['label_name'];
+        $events[$date][] = [
+            't_name' => $row['t_name'],
+            'description' => $row['description'],
+            'label_name' => $row['label_name'],
+            'label_color' => $row['label_color']
+        ];
     }
 
     echo json_encode(['success' => true, 'events' => $events]);
