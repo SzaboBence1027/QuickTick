@@ -142,3 +142,18 @@ function displayMessage(message) {
     const container = document.getElementById('tasks-container');
     container.innerHTML = `<p>${message}</p>`;
 }
+
+
+// Close the modal when the "X" button is clicked
+document.querySelector('.close').addEventListener('click', function () {
+    const modal = document.getElementById('task-modal');
+    modal.style.display = 'none';
+});
+
+// Close the modal when clicking outside the modal content
+window.addEventListener('click', function (event) {
+    const modal = document.getElementById('task-modal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
