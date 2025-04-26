@@ -56,7 +56,7 @@ function displayPastTasks(tasksByDate) {
 
         // Create a date header
         const dateHeader = document.createElement('h3');
-        dateHeader.textContent = `Tasks from: ${date}`;
+        dateHeader.textContent = `Feladtaok a kövbetkező napról: ${date}`;
         dateHeader.className = 'date-header';
 
         // Add a horizontal line below the date header
@@ -86,8 +86,11 @@ function displayPastTasks(tasksByDate) {
             // Background div (set the label color dynamically)
             const taskBg = document.createElement('div');
             taskBg.className = 'ag-courses-item_bg';
-            taskBg.style.backgroundColor = task.label_color || '#f9b234'; // Default color if no label color is provided
-
+            if (task.progresson == 1) {
+            taskBg.style.backgroundColor = '#008000'
+            }
+            else  {
+             taskBg.style.backgroundColor = '#FF0000'}
             // Task title
             const taskTitle = document.createElement('div');
             taskTitle.className = 'ag-courses-item_title';

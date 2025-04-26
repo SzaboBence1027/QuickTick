@@ -18,6 +18,7 @@ try {
                 task.deadline, 
                 task.t_name, 
                 task.description, 
+                task.progresson,
                 label.l_name as label_name, 
                 label.color as label_color
               FROM task
@@ -46,8 +47,10 @@ try {
         $events[$date][] = [
             't_name' => $row['t_name'],
             'description' => $row['description'],
+            'progresson' => $row['progresson'],
             'label_name' => $row['label_name'],
             'label_color' => $row['label_color']
+            
         ];
     }
 
