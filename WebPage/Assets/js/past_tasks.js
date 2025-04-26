@@ -56,7 +56,7 @@ function displayPastTasks(tasksByDate) {
 
         // Create a date header
         const dateHeader = document.createElement('h3');
-        dateHeader.textContent = `Feladtaok a kövbetkező napról: ${date}`;
+        dateHeader.textContent = `Feladatok a kövbetkező napról: ${date}`;
         dateHeader.className = 'date-header';
 
         // Add a horizontal line below the date header
