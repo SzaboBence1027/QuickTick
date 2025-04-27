@@ -107,7 +107,7 @@ function displayTasks(tasks) {
         const taskDateBox = document.createElement('div');
         taskDateBox.className = 'ag-courses-item_date-box';
         taskDateBox.innerHTML = `
-            Deadline:
+            Határidő:
             <span class="ag-courses-item_date">${task.deadline}</span>
         `;
 
