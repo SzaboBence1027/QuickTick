@@ -107,7 +107,7 @@ h1, h2, h3, h4, h5, h6 {
 	Header Styles 
 --------------------------------------------------------*/
 .top-header {
-  background: #e3722e;
+  background: #573b8a;
   color: white;
   padding: 10px 0;
 }
@@ -179,7 +179,7 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 3px;
 }
 .main-header .menu ul li a.current {
-  background: #e3722e;
+  background: #573b8a;
   color: white;
 }
 
@@ -194,7 +194,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .responsive-menu .toggle-menu {
   font-size: 24px;
-  color: #e3722e;
+  color: #573b8a;
 }
 .responsive-menu .menu {
   display: none;
