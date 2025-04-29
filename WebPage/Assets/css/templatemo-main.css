@@ -240,7 +240,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   width: 70px;
   height: 4px;
-  background: #e3722e;
+  background: #573b8a;
   margin: 0 auto;
 }
 
@@ -431,7 +431,7 @@ h1, h2, h3, h4, h5, h6 {
 #about .our-team .team-member .inner-content h5 {
   font-size: 18px;
   font-weight: 600;
-  color: #e3722e;
+  color: #573b8a;
   margin-bottom: 10px;
 }
 #about .our-team .team-member .inner-content span {
