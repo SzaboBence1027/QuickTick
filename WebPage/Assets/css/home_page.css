@@ -32,41 +32,63 @@ input[type="date"] {
   left: 0;
   z-index: 1000; /* Ensure it stays on top of other elements */
 }
-
-.div2_home_page {
-  
+/*
+.div2_home_page {*/
+  /*
   padding: 20px;
-  height: 100vh; /* Ensure the content takes the full height of the viewport */
-  box-sizing: border-box; /* Include padding in the element's total width and height */
+  height: 100vh; 
+  box-sizing: border-box;
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  overflow-y: auto; /* Allow scrolling if content overflows */
-}
-
+  flex-direction: column; 
+  overflow-y: auto; */
+/*}
+*/
 .parent {
   display: flex; /* Use flexbox for layout */
   height: 100vh; /* Full height of the viewport */
+  overflow-y: auto; /* Enable scrolling for the wrapper */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .div1_home_page {
   flex: 0 0 130px; /* Sidebar width */
-  position: fixed; /* Keep the sidebar fixed */
+  position: sticky; /* Keep the sidebar in place */
   height: 100%; /* Full height */
   top: 0;
   left: 0;
   z-index: 1000; /* Ensure it stays on top of other elements */
+  background-color: rgb(53, 53, 53); /* Sidebar background color */
+  padding: 15px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.div3_home_page {
+  flex: 0 0 200px; /* Date selector width */
+  position: sticky; /* Keep the date selector in place */
+  height: 100%; /* Full height */
+  top: 0;
+  right: 0;
+  z-index: 1000; /* Ensure it stays on top of other elements */
+  padding: 15px 20px; /* Add padding to the right */
+  
 }
 
 .div2_home_page {
-  flex: 1; /* Take up the remaining space */
-  
   padding: 20px;
-  overflow-y: auto; /* Allow scrolling if content overflows */
-  max-width: 100%; /* Prevent child elements from exceeding the parent's width */
-   
+  height: 100vh; 
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column; 
+  
 }
-.home_page{
-  overflow: hidden;
+
+/* Ensure the body doesn't scroll */
+body {
+  margin: 0;
+    height: 100vh; /* Full height of the viewport */
+    overflow: hidden; /* Prevent the body from scrolling */
+    display: flex;
+    flex-direction: column;
 }
 .sidebar h2 {
     text-align: center;
@@ -173,15 +195,15 @@ input[type="date"] {
 
     .div1_home_page {  
         grid-row: span 5 / span 5; 
-        position: relative;
+        
     } 
     .div2_home_page { 
-        position: relative;
+        
         grid-column: span 3 / span 3;
         grid-row: span 5 / span 5;
      }
     .div3_home_page { 
-        position: relative;
+        
         grid-row: span 5 / span 5;
         grid-column-start: 5;
     }
