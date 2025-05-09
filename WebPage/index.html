@@ -25,7 +25,16 @@
     <!-- JavaScripts -->
     <script src="./Assets/js/jquery-1.10.2.min.js"></script>
     <script src="./Assets/js/modernizr.js"></script>
-    
+ 
+    <style>
+    .flexslider .flex-caption h2 {
+        background: rgba(0, 0, 0, 0.938); /* Semi-transparent background */
+        backdrop-filter: blur(10px); /* Apply blur effect */
+        padding: 55px; /* Add some padding for better readability */
+        border-radius: 5px; /* Optional: rounded corners */
+        display: inline-block; /* Ensure the background fits the text */
+    }
+</style>
 </head>
 <body>
     
@@ -76,8 +85,8 @@
             <li>
                 <img src="./Assets/images/banner02.png" alt="">
                 <div class="flex-caption">
-                    <h2>Főoldal</h2>
-                    <span></span>
+                    <h2 class="blurry">Főoldal</h2>
+                    
                    
                 </div>
             </li>
@@ -85,7 +94,7 @@
                 <img src="./Assets/images/banner01.png" alt="">
                 <div class="flex-caption">
                     <h2>Régebbi feladatok</h2>
-                    <span></span>
+                   
                    
                 </div>
             </li>
@@ -151,4 +160,3 @@
 </body>
 </html>
 
-<button onclick="window.location.href='./views/Login_Page.html';">Bejelentkezés</button>

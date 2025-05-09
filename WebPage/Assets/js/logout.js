@@ -14,7 +14,7 @@ function confirmLogout() {
         .then(data => {
             console.log(data.success)
             if (data.success) {
-                window.location.href = "../views/Login_Page.html"; // Redirect after successful logout
+                window.location.href = "../index.html"; // Redirect after successful logout
             } else {
                 alert('Logout failed. Please try again.');
             }
